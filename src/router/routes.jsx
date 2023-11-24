@@ -6,6 +6,7 @@ import AdminHome from "../view/Admin/AdminHome/AdminHome";
 import AdminLogin from "../view/Admin/AdminLogin/AdminLogin";
 import AdminQuestions from "../view/Admin/AdminQuestions/AdminQuestions";
 import { AdminAnswers } from "../view/Admin/AdminAnswers/AdminAnswers";
+import { useRedirect } from "./AuthRedirect";
 
 export default createBrowserRouter([
   {
@@ -21,6 +22,7 @@ export default createBrowserRouter([
     element: <AdminLogin />,
   },
   {
+    loader: useRedirect,
     path: "administration",
     element: <AdminLayout />,
     children: [
