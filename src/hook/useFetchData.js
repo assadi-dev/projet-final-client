@@ -14,7 +14,7 @@ const useFetchData = (url, params) => {
     errors: null,
   });
 
-  const abortControllerRef = useRef(AbortController);
+  const abortControllerRef = useRef(new AbortController());
 
   const { isLoading, data, errors } = state;
 
