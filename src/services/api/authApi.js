@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { adminInstance, instance } from "../instance";
 
 /**
@@ -20,5 +21,5 @@ export const login = (body) => {
  * demande de suppression du token enregistré au serveur
  */
 export const revokeToken = () => {
-  adminInstance.post("/revokeToken");
+  return adminInstance.post("/revokeToken", null);
 };
