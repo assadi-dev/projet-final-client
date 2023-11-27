@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import LogoutBtn from "../../../components/LogoutBtn/LogoutBtn";
 
 const AdminSidebar = () => {
   const sidebarNavigation = [
@@ -18,6 +17,10 @@ const AdminSidebar = () => {
     },
   ];
 
+  const LogoutBtn = React.lazy(() =>
+    import("../../../components/LogoutBtn/LogoutBtn")
+  );
+
   return (
     <div className="sidebar">
       <p>sidebar</p>
@@ -28,7 +31,9 @@ const AdminSidebar = () => {
           </li>
         ))}
         <li>
-          <LogoutBtn />
+          <React.Suspense>
+            <LogoutBtn />
+          </React.Suspense>
         </li>
       </ul>
     </div>
