@@ -5,7 +5,10 @@ import { Outlet, redirect } from "react-router-dom";
  * redirection de l'utilisateur en cas de non presence du token
  */
 export const useRedirect = () => {
-  console.log("connecté");
-  //return redirect("/login");
+  const TOKEN_STORAGE = localStorage.getItem(
+    import.meta.env.VITE_TOKEN_STORAGE
+  );
+  if (!TOKEN_STORAGE) return redirect("/login");
+  console.log("connecté", TOKEN_STORAGE);
   return <Outlet />;
 };
