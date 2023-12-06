@@ -9,38 +9,42 @@ import { adminInstance } from "../services/instance";
  */
 const useFetchData = (url, params) => {
   const [state, setState] = useState({
-    isLoading: false,
+    isLoading: true,
     data: null,
     errors: null,
   });
 
+  /**
+   * contient l'intance de AbortController
+   */
   const abortControllerRef = useRef(new AbortController());
 
   const { isLoading, data, errors } = state;
+  const fetch = useCallback(
+    async (url, params) => {
+      try {
+        const res = await adminInstance.get(url, {
+          signal: abortControllerRef.current?.signal,
+          ...params,
+        });
 
-  const fetch = useCallback(async (url, params) => {
-    abortControllerRef.current?.abort();
-    setState({ ...state, isLoading: true });
-    try {
-      const res = await adminInstance.get(url, {
-        signal: abortControllerRef.current?.signal,
-        ...params,
-      });
-      setState({ ...state, data: res.data });
-    } catch (error) {
-      setState({ ...state, errors: error });
-    } finally {
-      setState({ ...state, isLoading: false });
-    }
-  }, []);
+        setState((prevState) => ({ ...prevState, data: res.data }));
+      } catch (error) {
+        setState((prevState) => ({ ...prevState, errors: error }));
+      } finally {
+        setState((prevState) => ({ ...prevState, isLoading: false }));
+      }
+    },
+    [url, params]
+  );
 
-  useEffect(() => {
-    if (url) {
-      fetch(url, params);
-    }
-  }, [url]);
-
-  return { isLoading, data, errors, fetch };
+  return {
+    isLoading,
+    data: data,
+    errors,
+    fetch,
+    abortController: abortControllerRef,
+  };
 };
 
 export default useFetchData;

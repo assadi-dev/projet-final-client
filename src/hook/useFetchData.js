@@ -19,28 +19,27 @@ const useFetchData = (url, params) => {
   const { isLoading, data, errors } = state;
 
   const fetch = useCallback(async (url, params) => {
-    abortControllerRef.current?.abort();
     setState({ ...state, isLoading: true });
     try {
       const res = await instance.get(url, {
         signal: abortControllerRef.current?.signal,
         ...params,
       });
-      setState({ ...state, data: res.data });
+      setState((prevState) => ({ ...prevState, data: res.data }));
     } catch (error) {
-      setState({ ...state, errors: error });
+      setState((prevState) => ({ ...prevState, errors: error }));
     } finally {
-      setState({ ...state, isLoading: false });
+      setState((prevState) => ({ ...prevState, isLoading: false }));
     }
   }, []);
 
-  useEffect(() => {
-    if (url) {
-      fetch(url, params);
-    }
-  }, [url]);
-
-  return { isLoading, data, errors, fetch };
+  return {
+    isLoading,
+    data,
+    errors,
+    fetch,
+    abortController: abortControllerRef,
+  };
 };
 
 export default useFetchData;
