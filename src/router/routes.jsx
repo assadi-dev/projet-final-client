@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createBrowserRouter } from "react-router-dom";
 import HomeView from "../view/HomeView/HomeView";
 import SurveyView from "../view/SurveyView/SurveyView";
