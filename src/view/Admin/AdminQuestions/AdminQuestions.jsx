@@ -6,7 +6,7 @@ import useFetchData from "../../../hook/useAdminFetchData";
 const AdminQuestions = () => {
   const { data, isLoading, errors, fetch, abortController } = useFetchData(
     "/surveys",
-    {}
+    null
   );
 
   const columnHelper = createColumnHelper();
@@ -32,12 +32,11 @@ const AdminQuestions = () => {
       abortController.current.abort();
     };
   }, []);
-  console.log(data);
 
   return (
     <div>
       <h1> Questionnaire</h1>
-      <DataTable columns={COLUMN} />
+      <DataTable columns={COLUMN} data={data?.data} isLoading={isLoading} />
     </div>
   );
 };

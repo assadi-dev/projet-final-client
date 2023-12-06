@@ -4,8 +4,11 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import EmptyRow from "./EmptyRow";
+import DataRow from "./DataRow";
+import DatatRowLoader from "./DatatRowLoader";
 
-const DataTable = ({ columns, data }) => {
+const DataTable = ({ columns, data, isLoading }) => {
   const COLUMNS = React.useMemo(() => (columns ? columns : []), [columns]);
   const DATA = React.useMemo(() => (data ? data : []), [data]);
 
@@ -34,15 +37,7 @@ const DataTable = ({ columns, data }) => {
         ))}
       </thead>
       <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <tr key={row.id}>
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
-        ))}
+        {isLoading ? <DatatRowLoader /> : <DataRow table={table} data={DATA} />}
       </tbody>
     </table>
   );
