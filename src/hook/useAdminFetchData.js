@@ -23,6 +23,7 @@ const useFetchData = (url, params) => {
   const fetch = useCallback(
     async (url, params) => {
       try {
+        params = params || {};
         const res = await adminInstance.get(url, {
           signal: abortControllerRef.current?.signal,
           ...params,
