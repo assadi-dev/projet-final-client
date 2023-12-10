@@ -1,10 +1,10 @@
-const Input = ({type, required, isEmail, options, name}) => {
+const Input = ({type, required, isEmail, options, name, formik}) => {
     let input = {
         name: name,
         type: null,
         required: required? true : false,
         min: 0,
-        max: 0
+        //max: 0
     }
 
     switch (type) {
@@ -30,7 +30,11 @@ const Input = ({type, required, isEmail, options, name}) => {
             </div>            
         ))
     }else{
-        input = <input type={input.type} required={input.required} name={input.name} id={input.name} min={input.min}/>
+        input = (<><input type={input.type} required={input.required} name={input.name} id={input.name} min={input.min} onChange={formik.handleChange} 
+        value={formik.values[name]} onBlur={formik.handleBlur}/>
+        {formik.touched[name] && formik.errors[name] ? (
+            <div>{formik.errors[name]}</div>
+          ) : null}</>)
     }
     return input
 }
