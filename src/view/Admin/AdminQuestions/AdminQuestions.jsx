@@ -24,7 +24,7 @@ const AdminQuestions = () => {
       id: "Action",
       cell: ({ row }) => (
         <button onClick={() => handleShowListQuestion(row?.original)}>
-          icon
+          voir les questions
         </button>
       ),
     }),
