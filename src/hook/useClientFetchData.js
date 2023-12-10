@@ -7,7 +7,7 @@ import { instance } from "../services/instance";
  * @param {object} params objet contenant les parametres de la requete
  * @returns
  */
-const useFetchData = (url, params) => {
+const useClientFetchData = (url, params) => {
   const [state, setState] = useState({
     isLoading: true,
     data: null,
@@ -44,8 +44,8 @@ const useFetchData = (url, params) => {
     data: data,
     errors,
     fetch,
-    abortController: abortControllerRef,
+    abortController: abortControllerRef.current,
   };
 };
 
-export default useFetchData;
+export default useClientFetchData;
