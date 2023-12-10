@@ -22,14 +22,22 @@ const AdminQuestions = () => {
     }),
     columnHelper.display({
       id: "Action",
-      cell: ({ row }) => <span>icon</span>,
+      cell: ({ row }) => (
+        <button onClick={() => handleShowListQuestion(row?.original)}>
+          icon
+        </button>
+      ),
     }),
   ];
+
+  const handleShowListQuestion = (survey) => {
+    console.log(survey);
+  };
 
   useEffect(() => {
     fetch("/surveys");
     return () => {
-      abortController.current.abort();
+      abortController?.abort();
     };
   }, []);
 
