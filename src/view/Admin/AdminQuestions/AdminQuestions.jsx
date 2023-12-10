@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "../../../components/DataTable/DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import useFetchData from "../../../hook/useAdminFetchData";
+import Modal from "../../../components/Modal";
+import RenderListQuestion from "./RenderListQuestion";
 
 const AdminQuestions = () => {
   const { data, isLoading, errors, fetch, abortController } = useFetchData(
     "/surveys",
     null
   );
+  const [surveySelected, setSurveySelected] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
 
   const columnHelper = createColumnHelper();
 
@@ -30,8 +34,13 @@ const AdminQuestions = () => {
     }),
   ];
 
+  const toggleModal = () => {
+    setIsOpen((current) => (current = !current));
+  };
+
   const handleShowListQuestion = (survey) => {
-    console.log(survey);
+    setSurveySelected(survey);
+    toggleModal();
   };
 
   useEffect(() => {
@@ -45,6 +54,9 @@ const AdminQuestions = () => {
     <div>
       <h1> Questionnaire</h1>
       <DataTable columns={COLUMN} data={data?.data} isLoading={isLoading} />
+      <Modal isOpen={isOpen} closeModal={toggleModal}>
+        <RenderListQuestion is surveyData={surveySelected} />
+      </Modal>
     </div>
   );
 };
