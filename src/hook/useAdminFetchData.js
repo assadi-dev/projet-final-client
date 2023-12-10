@@ -44,7 +44,7 @@ const useFetchData = (url, params) => {
     data: data,
     errors,
     fetch,
-    abortController: abortControllerRef,
+    abortController: abortControllerRef.current,
   };
 };
 
