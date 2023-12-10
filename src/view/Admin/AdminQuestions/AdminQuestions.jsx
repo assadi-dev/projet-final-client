@@ -55,7 +55,7 @@ const AdminQuestions = () => {
       <h1> Questionnaire</h1>
       <DataTable columns={COLUMN} data={data?.data} isLoading={isLoading} />
       <Modal isOpen={isOpen} closeModal={toggleModal}>
-        <RenderListQuestion is surveyData={surveySelected} />
+        <RenderListQuestion surveyData={surveySelected} />
       </Modal>
     </div>
   );
