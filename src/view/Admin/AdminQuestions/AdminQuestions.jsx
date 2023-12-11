@@ -6,10 +6,7 @@ import Modal from "../../../components/Modal";
 import RenderListQuestion from "./RenderListQuestion";
 
 const AdminQuestions = () => {
-  const { data, isLoading, errors, fetch, abortController } = useFetchData(
-    "/surveys",
-    null
-  );
+  const { data, isLoading, errors, fetch, abortController } = useFetchData();
   const [surveySelected, setSurveySelected] = useState({});
   const [isOpen, setIsOpen] = useState(false);
 
