@@ -11,11 +11,7 @@ export const AdminAnswers = () => {
   const columnHelper = createColumnHelper();
 
   const COLUMN = [
-    columnHelper.accessor("id", {
-      header: () => "#",
-      cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor("number_question", {
+    columnHelper.accessor("question_number", {
       header: () => "Numero de la question",
       cell: (info) => info.getValue(),
     }),
