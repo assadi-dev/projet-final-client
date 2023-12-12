@@ -20,15 +20,13 @@ const PieChartCard = ({ title, data, colors }) => {
   }, [data]);
 
   return (
-    <div>
-      <Chart
-        chartType="PieChart"
-        data={CHART_DATA}
-        options={options}
-        width={"100%"}
-        height={"400px"}
-      />
-    </div>
+    <Chart
+      chartType="PieChart"
+      data={CHART_DATA}
+      options={options}
+      width={"100%"}
+      height={"400px"}
+    />
   );
 };
 
