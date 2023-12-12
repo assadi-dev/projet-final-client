@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import useFetchData from "../../hook/useAdminFetchData";
+import useClientFetchData from "../../hook/useClientFetchData";
 import { useParams } from "react-router";
 import QuestionCard from "../../components/question/QuestionCard";
 import { Form, Formik } from "formik";
@@ -34,7 +35,7 @@ const Survey = () => {
       surveyObject.abortController.current.abort();
       questionsObjet.abortController.current.abort();
     };
-  }, [])
+  }, []);
 
   return (
   <div>

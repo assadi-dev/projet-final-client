@@ -21,5 +21,5 @@ export const login = (body) => {
  * demande de suppression du token enregistré au serveur
  */
 export const revokeToken = () => {
-  return adminInstance.post("/revokeToken", null);
+  return adminInstance.post("/revokeToken");
 };

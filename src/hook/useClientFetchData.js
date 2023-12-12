@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { adminInstance } from "../services/instance";
+import { useCallback, useRef, useState } from "react";
+import { instance } from "../services/instance";
 
 /**
- * Effectue une requete de type GET avec insertion du token avec axios interceptor
+ * Effectue une requete de type GET sans token
  * @param {string} url endpoint de l'api qu'on souhaite interrogé ex: /questions
  * @param {object} params objet contenant les parametres de la requete
  * @returns
  */
-const useFetchData = (url, params) => {
+const useClientFetchData = (url, params) => {
   const [state, setState] = useState({
     isLoading: true,
     data: null,
@@ -24,7 +24,7 @@ const useFetchData = (url, params) => {
     async (url, params) => {
       try {
         params = params || {};
-        const res = await adminInstance.get(url, {
+        const res = await instance.get(url, {
           signal: abortControllerRef.current?.signal,
           ...params,
         });
@@ -48,4 +48,4 @@ const useFetchData = (url, params) => {
   };
 };
 
-export default useFetchData;
+export default useClientFetchData;
