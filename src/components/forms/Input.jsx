@@ -1,17 +1,14 @@
-const Input = ({type, required, isEmail, options, name, formik}) => {
-    let input = {
+import { ErrorMessage, Field } from "formik";
+
+const Input = ({type, isEmail, options, name, min, max}) => {
+     let input = {
         name: name,
         type: null,
-        required: required? true : false,
-        min: 0,
-        //max: 0
+        min: min,
+        max: max
     }
 
     switch (type) {
-        case "C":
-            input.type = "number"
-            input.min = 0
-            break;
         case "B":
             input.type = isEmail? "email" : "text"
             break;
@@ -22,21 +19,38 @@ const Input = ({type, required, isEmail, options, name, formik}) => {
             break;
     }
 
-    if(options.length > 1) {
-        input = options.map((option, index) => (
-            <div key={index}>
-                <input type={input.type} required={input.required} id={input.name+index} name={input.name}/>
-                <label htmlFor={input.name+index}>{option.proposition}</label>
-            </div>            
-        ))
-    }else{
-        input = (<><input type={input.type} required={input.required} name={input.name} id={input.name} min={input.min} onChange={formik.handleChange} 
-        value={formik.values[name]} onBlur={formik.handleBlur}/>
-        {formik.touched[name] && formik.errors[name] ? (
-            <div>{formik.errors[name]}</div>
-          ) : null}</>)
+    let result, optionList = ""
+    if (type == 'A') {
+        result = <div role="group" aria-labelledby="my-radio-group">
+            {
+                options.map((option, index) => (
+                    <div key={index}>
+                        <label>
+                            <input type={input.type} name={input.name} value={option.id} id={input.name+index}/>
+                            {option.proposition}
+                        </label> 
+                    </div>))
+            }
+            <ErrorMessage name={input.name} />
+        </div>
     }
-    return input
+    if(type == 'B'){
+        result = <>
+            <Field name={input.name} type={input.type}></Field>
+            <ErrorMessage name={input.name} />
+        </>
+    }
+    if(type == 'C'){
+        for (let i = 0; i <= max; i++) {
+            optionList = <option value={i}>{i}</option>
+        }
+        result = <>
+            <Field name={input.name} as="select">
+                {optionList}
+            </Field>
+        </>
+    }
+    return result
 }
 
 export default Input
