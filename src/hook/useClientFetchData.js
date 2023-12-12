@@ -26,7 +26,7 @@ const useClientFetchData = (url, params) => {
         params = params || {};
         const res = await instance.get(url, {
           signal: abortControllerRef.current?.signal,
-          ...params,
+          params: { ...params },
         });
 
         setState((prevState) => ({ ...prevState, data: res.data }));
