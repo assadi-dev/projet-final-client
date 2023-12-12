@@ -1,53 +1,48 @@
 import React from "react";
 import PieChartCard from "./PieChartCard";
+import RadarChart from "./RadarChart";
+import {
+  DATA_RADIO_CHART,
+  QUESTION10_DATA_CHART,
+  QUESTION6_DATA_CHART,
+  QUESTION7_DATA_CHART,
+} from "./helpers";
 
 const AdminHome = () => {
-  const QUESTION6_DATA = [
-    ["Casques", "nombres"],
-    ["Oculus Quest", 11],
-    ["Oculus Rift/s", 2],
-    ["HTC Vive", 2],
-    ["Windows Mixed Reality", 2],
-    ["Valve index", 7],
-  ];
-  const QUESTION7_DATA = [
-    ["Magasin", "nombres"],
-    ["SteamVR,", 11],
-    ["Occulus store,", 2],
-    ["Viveport", 2],
-    ["Windows store", 2],
-  ];
-  const QUESTION10_DATA = [
-    ["Utilisation principale", "nombres"],
-    ["regarder la TV en direct", 11],
-    ["regarder des films", 2],
-    ["travailler", 2],
-    ["jouer en solo", 2],
-    ["jouer en équipe", 7],
-  ];
-
   return (
     <div>
-      <div style={{ width: "100%" }}>
+      <div style={defaultStyle}>
         <PieChartCard
           title={`Question 6: Quel marque de casque VR utilisez-vous ?`}
-          data={QUESTION6_DATA}
+          data={QUESTION6_DATA_CHART}
         />
       </div>
-      <div>
+      <div style={defaultStyle}>
         <PieChartCard
           title={`Question 7: Sur quel magasin d’application achetez vous des contenus VR ?`}
-          data={QUESTION7_DATA}
+          data={QUESTION7_DATA_CHART}
         />
       </div>
-      <div>
+      <div style={defaultStyle}>
         <PieChartCard
           title={`Question 10: Vous utilisez principalement Bigscreen pour :`}
-          data={QUESTION10_DATA}
+          data={QUESTION10_DATA_CHART}
+        />
+      </div>
+      <div style={defaultStyle}>
+        <RadarChart
+          data={DATA_RADIO_CHART}
+          options={{ maintainAspectRatio: false }}
         />
       </div>
     </div>
   );
 };
 
+const defaultStyle = {
+  width: "100%",
+  height: "400px",
+  display: "flex",
+  placeItem: "center",
+};
 export default AdminHome;
