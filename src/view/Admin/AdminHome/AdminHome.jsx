@@ -55,8 +55,6 @@ const AdminHome = () => {
       });
     }
 
-    console.log(datasets);
-
     const labels = Array.from({ length: 5 }, (_, i) => i + 1);
     dispatchChartData({
       type: UPDATE_RADAR_DATA,
@@ -85,18 +83,22 @@ const AdminHome = () => {
         )}
       </div>
       <div style={defaultStyle}>
-        <PieChartCard
-          title={`Question 7: Sur quel magasin d’application achetez vous des contenus VR ?`}
-          labels={charDataState.question7.labels}
-          datas={charDataState.question7.data}
-        />
+        {!charDataState.question7.isLoading && (
+          <PieChartCard
+            title={`Question 7: Sur quel magasin d’application achetez vous des contenus VR ?`}
+            labels={charDataState.question7.labels}
+            datas={charDataState.question7.data}
+          />
+        )}
       </div>
       <div style={defaultStyle}>
-        <PieChartCard
-          title={`Question 10: Vous utilisez principalement Bigscreen pour :`}
-          labels={charDataState.question10.labels}
-          datas={charDataState.question10.data}
-        />
+        {!charDataState.question10.isLoading && (
+          <PieChartCard
+            title={`Question 10: Vous utilisez principalement Bigscreen pour :`}
+            labels={charDataState.question10.labels}
+            datas={charDataState.question10.data}
+          />
+        )}
       </div>
       <div style={defaultStyle}>
         {!charDataState.radarChartData.isLoading && (
