@@ -12,7 +12,7 @@ const LogoutBtn = () => {
   const resetAction = async () => {
     setisloading(true);
     try {
-      await revokeToken();
+      revokeToken();
       Cookies.remove(AUTH_TOKEN);
       navigate("/login", { replace: true });
     } catch (error) {
