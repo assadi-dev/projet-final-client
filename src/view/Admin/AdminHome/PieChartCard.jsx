@@ -34,8 +34,6 @@ const PieChartCard = ({
     };
   }, [datas, labels]);
 
-  console.log(CHART_DATA);
-
   return (
     <Pie
       data={CHART_DATA}

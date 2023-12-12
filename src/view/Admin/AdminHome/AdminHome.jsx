@@ -45,8 +45,6 @@ const AdminHome = () => {
     fetchforPieChart();
   }, []);
 
-  console.log(charDataState.question6.datasets);
-
   return (
     <div>
       <div style={defaultStyle}>
