@@ -9,10 +9,11 @@ import {
   Legend,
 } from "chart.js";
 import { Radar } from "react-chartjs-2";
-import { DATA_RADIO_CHART } from "./helpers";
+import { DATA_RADAR_CHART } from "./helpers";
 
 const RadarChart = ({ title, data, ...props }) => {
-  const CHART_DATA = useMemo(() => data || DATA_RADIO_CHART, [data]);
+  console.log(data);
+  const CHART_DATA = useMemo(() => data || DATA_RADAR_CHART, [data]);
 
   ChartJS.register(
     RadialLinearScale,
@@ -23,13 +24,7 @@ const RadarChart = ({ title, data, ...props }) => {
     Legend
   );
 
-  return (
-    <Radar
-      data={CHART_DATA}
-      options={{ maintainAspectRatio: false }}
-      {...props}
-    />
-  );
+  return <Radar data={CHART_DATA} {...props} />;
 };
 
 export default RadarChart;

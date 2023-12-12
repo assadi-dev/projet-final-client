@@ -34,14 +34,7 @@ const PieChartCard = ({
     };
   }, [datas, labels]);
 
-  return (
-    <Pie
-      data={CHART_DATA}
-      width={"100%"}
-      options={{ maintainAspectRatio: false }}
-      {...props}
-    />
-  );
+  return <Pie data={CHART_DATA} width={"100%"} {...props} />;
 };
 
 export default PieChartCard;

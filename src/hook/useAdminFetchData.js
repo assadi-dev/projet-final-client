@@ -26,7 +26,7 @@ const useFetchData = (url, params) => {
         params = params || {};
         const res = await adminInstance.get(url, {
           signal: abortControllerRef.current?.signal,
-          ...params,
+          params: { ...params },
         });
 
         setState((prevState) => ({ ...prevState, data: res.data }));
