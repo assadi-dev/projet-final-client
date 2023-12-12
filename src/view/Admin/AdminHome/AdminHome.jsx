@@ -1,7 +1,12 @@
 import React from "react";
+import PieChartCard from "./PieChartCard";
 
 const AdminHome = () => {
-  return <div>AdminHome</div>;
+  return (
+    <div>
+      <PieChartCard />
+    </div>
+  );
 };
 
 export default AdminHome;
