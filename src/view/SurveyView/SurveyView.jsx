@@ -35,8 +35,8 @@ const Survey = () => {
     questionsObjet.fetch("/client/questions/"+idSurvey, null); //idSurvey sera remplacé par le token
     surveyObject.fetch("/client/surveys/"+idSurvey, null)
     return () => {
-      surveyObject.abortController.current.abort();
-      questionsObjet.abortController.current.abort();
+      surveyObject.abortController?.abort();
+      questionsObjet.abortController?.abort();
     };
   }, []);
 
