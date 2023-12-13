@@ -4,10 +4,10 @@ import HomeView from "../view/client/HomeView/HomeView";
 import SurveyView from "../view/client/SurveyView/SurveyView";
 import CompletedView from "../view/client/SurveyView/CompletedView";
 import AdminLayout from "../view/layout/AdminLayout/AdminLayout";
-import AdminHome from "../view/Admin/AdminHome/AdminHome";
-import AdminLogin from "../view/Admin/AdminLogin/AdminLogin";
-import AdminQuestions from "../view/Admin/AdminQuestions/AdminQuestions";
-import { AdminAnswers } from "../view/Admin/AdminAnswers/AdminAnswers";
+import AdminHome from "../view/admin/AdminHome/AdminHome";
+import AdminLogin from "../view/admin/AdminLogin/AdminLogin";
+import AdminQuestions from "../view/admin/AdminQuestions/AdminQuestions";
+import { AdminAnswers } from "../view/admin/AdminAnswers/AdminAnswers";
 import { useRedirect } from "./AuthRedirect";
 
 export default createBrowserRouter([

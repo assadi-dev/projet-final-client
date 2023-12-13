@@ -8,7 +8,7 @@ import { formatAnswerObject } from "../../../helpers/answerObject";
 import { createAnswers } from "../../../services/api/answer";
 import { useNavigate } from "react-router-dom";
 
-const Survey = () => {
+const SurveyView = () => {
   const navigate = useNavigate()
   // récupération de l'id du sondage en paramètre
   // à changer avec un token après
@@ -81,4 +81,4 @@ const Survey = () => {
   );
 };
 
-export default Survey;
+export default SurveyView;
