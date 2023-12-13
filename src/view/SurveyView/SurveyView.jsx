@@ -1,19 +1,22 @@
 import React, { useEffect } from "react";
-import useFetchData from "../../hook/useAdminFetchData";
 import useClientFetchData from "../../hook/useClientFetchData";
 import { useParams } from "react-router";
 import QuestionCard from "../../components/question/QuestionCard";
 import { Form, Formik } from "formik";
 import * as Yup from 'yup';
+import { formatAnswerObject } from "../../helpers/answerObject";
+import { createAnswers } from "../../services/api/answer";
+import { useNavigate } from "react-router-dom";
 
 const Survey = () => {
+  const navigate = useNavigate()
   // récupération de l'id du sondage en paramètre
   // à changer avec un token après
   const {idSurvey} = useParams()
   // à remplacer après avec le useClientFetchData
-  const questionsObjet = useFetchData("/client/questions/"+idSurvey, null);
+  const questionsObjet = useClientFetchData("/client/questions/"+idSurvey, null);
   // récupération des données du sondage
-  const surveyObject = useFetchData("/client/surveys/"+idSurvey, null); 
+  const surveyObject = useClientFetchData("/client/surveys/"+idSurvey, null); 
 
   // construction des valeurs initiales de réponses et schema de validation
   let initValues = {}, schema = {}
@@ -49,7 +52,22 @@ const Survey = () => {
       initialValues={initValues}
       validationSchema={Yup.object(schema)}
       onSubmit={(values) => {
-        console.log(values);
+        const answerObject = formatAnswerObject(idSurvey, values, questionsObjet.data.data)
+        const execAsync = async () => {
+          try {
+            const response = await createAnswers(answerObject)
+            console.log(response.data);
+            navigate('/completed/'+response.data.participants.token)
+          } catch (error) {
+            let message = error.message;
+            const errorData = error?.response?.data;
+            if (errorData) {
+              message = errorData.message;
+            }
+            console.log(message);
+          }
+        }
+        execAsync()
       }}
     >
       <Form>

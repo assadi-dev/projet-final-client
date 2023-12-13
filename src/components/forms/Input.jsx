@@ -44,6 +44,7 @@ const Input = ({type, isEmail, options, name, max}) => {
         optionList = Array.from({length:max}, (_, x) => x + 1)
         result = <>
             <Field name={input.name} as="select">
+                <option value={0}>&nbsp;</option>
                 {optionList.map(option => <option value={option} key={option}>{option}</option>)}
             </Field>
             <ErrorMessage name={input.name} />

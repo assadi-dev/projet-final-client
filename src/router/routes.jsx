@@ -2,6 +2,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomeView from "../view/HomeView/HomeView";
 import SurveyView from "../view/SurveyView/SurveyView";
+import CompletedView from "../view/SurveyView/CompletedView";
 import AdminLayout from "../view/layout/AdminLayout/AdminLayout";
 import AdminHome from "../view/Admin/AdminHome/AdminHome";
 import AdminLogin from "../view/Admin/AdminLogin/AdminLogin";
@@ -17,6 +18,10 @@ export default createBrowserRouter([
   {
     path: "/survey/:idSurvey",
     element: <SurveyView />,
+  },
+  {
+    path: "/completed/:token",
+    element: <CompletedView />
   },
   {
     path: "login",
