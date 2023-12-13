@@ -57,7 +57,7 @@ const Survey = () => {
           try {
             const response = await createAnswers(answerObject)
             console.log(response.data);
-            navigate('/completed/'+response.data.participants.token)
+            navigate('/completed/'+response.data.participant.token)
           } catch (error) {
             let message = error.message;
             const errorData = error?.response?.data;
