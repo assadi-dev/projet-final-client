@@ -1,8 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createBrowserRouter } from "react-router-dom";
-import HomeView from "../view/HomeView/HomeView";
-import SurveyView from "../view/SurveyView/SurveyView";
-import CompletedView from "../view/SurveyView/CompletedView";
+import HomeView from "../view/client/HomeView/HomeView";
+import SurveyView from "../view/client/SurveyView/SurveyView";
+import CompletedView from "../view/client/SurveyView/CompletedView";
 import AdminLayout from "../view/layout/AdminLayout/AdminLayout";
 import AdminHome from "../view/Admin/AdminHome/AdminHome";
 import AdminLogin from "../view/Admin/AdminLogin/AdminLogin";
