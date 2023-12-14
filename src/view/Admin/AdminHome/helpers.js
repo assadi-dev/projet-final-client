@@ -174,9 +174,11 @@ export const DATA_RADAR_CHART = {
  */
 export const retrievQuestionValueCountRequest = (
   survey_id,
-  question_number
+  question_number,
+  signal
 ) => {
   return adminInstance.get(`/answers/count/value/${survey_id}`, {
+    signal,
     params: { question_number },
   });
 };

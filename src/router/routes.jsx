@@ -4,12 +4,13 @@ import HomeView from "../view/client/HomeView/HomeView";
 import SurveyView from "../view/client/SurveyView/SurveyView";
 import CompletedView from "../view/client/SurveyView/CompletedView";
 import AdminLayout from "../view/layout/AdminLayout/AdminLayout";
-import AdminHome from "../view/admin/AdminHome/AdminHome";
+
 import AdminLogin from "../view/admin/AdminLogin/AdminLogin";
 import AdminQuestions from "../view/admin/AdminQuestions/AdminQuestions";
-import { AdminAnswers } from "../view/admin/AdminAnswers/AdminAnswers";
 import { useRedirect } from "./AuthRedirect";
 import AnswerView from "../view/client/AnswerView/AnswerView";
+import AdminHome from "../view/Admin/AdminHome/AdminHome";
+import AdminAnswers from "../view/Admin/AdminAnswers/AdminAnswers";
 
 export default createBrowserRouter([
   {
@@ -22,7 +23,7 @@ export default createBrowserRouter([
   },
   {
     path: "/completed/:token",
-    element: <CompletedView />
+    element: <CompletedView />,
   },
   {
     path: "/answers/:token",
