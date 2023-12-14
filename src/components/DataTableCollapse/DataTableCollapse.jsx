@@ -26,11 +26,12 @@ const DataTableCollapse = ({
     state: {
       expanded: expanded,
     },
+    getCanExpand: true,
 
-    onExpandedChange: setExpanded,
     getCoreRowModel: getCoreRowModel(),
     getSubRows: (rows) => rows.subRows,
     getExpandedRowModel: getExpandedRowModel(),
+    manualExpanding: true,
   });
 
   return (
