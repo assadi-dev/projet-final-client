@@ -3,7 +3,7 @@ import DataTable from "../../../components/DataTable/DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import useFetchData from "../../../hook/useAdminFetchData";
 
-const SubComponentView = ({ row }) => {
+const SubRowAnswerComponentView = ({ row }) => {
   /**Récuperation du token du participant **/
   const token = row.original?.token;
 
@@ -40,4 +40,4 @@ const SubComponentView = ({ row }) => {
   );
 };
 
-export default SubComponentView;
+export default SubRowAnswerComponentView;

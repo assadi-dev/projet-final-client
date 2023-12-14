@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useFetchData from "../../../hook/useAdminFetchData";
 import { createColumnHelper } from "@tanstack/react-table";
 import DataTableCollapse from "../../../components/DataTableCollapse/DataTableCollapse";
-import SubComponentView from "./SubComponentView";
+import SubRowAnswerComponentView from "./SubRowAnswerComponentView";
 
 export const AdminAnswers = () => {
   const participantsPromise = useFetchData();
@@ -57,7 +57,7 @@ export const AdminAnswers = () => {
         data={participantsPromise?.data?.data}
         isLoading={participantsPromise.isLoading}
         expanded={expanded}
-        renderSubComponent={SubComponentView}
+        renderSubComponent={SubRowAnswerComponentView}
       />
     </div>
   );
