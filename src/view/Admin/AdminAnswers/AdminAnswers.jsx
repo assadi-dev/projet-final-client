@@ -39,3 +39,5 @@ export const AdminAnswers = () => {
     </div>
   );
 };
+
+export default AdminAnswers;

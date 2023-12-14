@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import useClientFetchData from "../../hook/useClientFetchData";
+import useClientFetchData from "../../../hook/useClientFetchData";
 import { useParams } from "react-router";
-import QuestionCard from "../../components/question/QuestionCard";
+import QuestionCard from "../../../components/question/QuestionCard";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-import { formatAnswerObject } from "../../helpers/answerObject";
-import { createAnswers } from "../../services/api/answer";
+import { formatAnswerObject } from "../../../helpers/answerObject";
+import { createAnswers } from "../../../services/api/answer";
 import { useNavigate } from "react-router-dom";
 
 const Survey = () => {
