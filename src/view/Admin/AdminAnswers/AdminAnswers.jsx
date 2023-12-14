@@ -11,7 +11,7 @@ export const AdminAnswers = () => {
   const columnHelper = createColumnHelper();
 
   const COLUMN = [
-    columnHelper.accessor("survey", {
+    columnHelper.accessor("survey.title", {
       header: () => "Sondage",
       cell: (info) => info.getValue(),
     }),
@@ -42,10 +42,6 @@ export const AdminAnswers = () => {
     );
   };
 
-  const handleExpanded = (props) => {
-    console.log(props);
-  };
-
   useEffect(() => {
     participantsPromise.fetch("/participants");
     return () => {
@@ -62,7 +58,6 @@ export const AdminAnswers = () => {
         isLoading={participantsPromise.isLoading}
         expanded={expanded}
         renderSubComponent={SubComponentView}
-        setExpanded={handleExpanded}
       />
     </div>
   );

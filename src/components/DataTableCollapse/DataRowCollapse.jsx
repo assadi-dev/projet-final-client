@@ -18,7 +18,7 @@ const DataRowCollapse = ({ data = [], table, renderSubComponent }) => {
             </tr>
             {row.getIsExpanded() && (
               <tr>
-                <td colSpan={row.getVisibleCells().length}>
+                <td colSpan={row.getVisibleCells()?.length}>
                   {renderSubComponent({ row })}
                 </td>
               </tr>
