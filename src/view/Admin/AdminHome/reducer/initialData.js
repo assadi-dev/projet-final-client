@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 export const initialState = {
   question6: { datasets: [], labels: [], isLoading: true },
   question7: { datasets: [], labels: [], isLoading: false },

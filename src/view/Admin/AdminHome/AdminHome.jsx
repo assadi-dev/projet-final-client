@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useReducer, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import PieChartCard from "./PieChartCard";
 import RadarChart from "./RadarChart";
 import { DATA_RADAR_CHART, retrievQuestionValueCountRequest } from "./helpers";
@@ -15,60 +21,72 @@ const AdminHome = () => {
     initialState
   );
 
+  const radarFetchAbortControllerRef = useRef(new AbortController());
+  const pieFetchAbortControllerRef = useRef(new AbortController());
+
   const fetchforPieChart = useCallback(async () => {
     const forQuestions = [6, 7, 10];
 
-    for (const question_number of forQuestions) {
-      const promise_question = await retrievQuestionValueCountRequest(
-        1,
-        question_number
-      );
-      const data = [...promise_question.data].map((data) => data.count);
-      const labels = [...promise_question.data].map((data) => data.value);
-      dispatchChartData({
-        type: UPDATE_QUESTION,
-        payload: {
+    try {
+      for (const question_number of forQuestions) {
+        const promise_question = await retrievQuestionValueCountRequest(
+          1,
           question_number,
-          data: { labels, data },
-          isLoading: false,
-        },
-      });
-    }
+          radarFetchAbortControllerRef.current?.signal
+        );
+        const data = [...promise_question.data].map((data) => data.count);
+        const labels = [...promise_question.data].map((data) => data.value);
+        dispatchChartData({
+          type: UPDATE_QUESTION,
+          payload: {
+            question_number,
+            data: { labels, data },
+            isLoading: false,
+          },
+        });
+      }
+    } catch (error) {}
   }, []);
 
   const fetchForRadarChart = useCallback(async () => {
     const forQuestions = [11, 12, 13, 14, 15];
     let datasets = [...DATA_RADAR_CHART.datasets];
+    try {
+      for (const [index, question_number] of forQuestions.entries()) {
+        const promise_question = await retrievQuestionValueCountRequest(
+          1,
+          question_number,
+          pieFetchAbortControllerRef.current?.signal
+        );
+        const data = [...promise_question.data].map((answer) => answer.count);
 
-    for (const [index, question_number] of forQuestions.entries()) {
-      const promise_question = await retrievQuestionValueCountRequest(
-        1,
-        question_number
-      );
-      const data = [...promise_question.data].map((answer) => answer.count);
+        datasets = [...datasets].map((v, i) => {
+          if (i == index) {
+            return { ...v, data };
+          }
+          return v;
+        });
+      }
 
-      datasets = [...datasets].map((v, i) => {
-        if (i == index) {
-          return { ...v, data };
-        }
-        return v;
+      const labels = Array.from({ length: 5 }, (_, i) => i + 1);
+      dispatchChartData({
+        type: UPDATE_RADAR_DATA,
+        payload: {
+          labels,
+          datasets,
+          isLoading: false,
+        },
       });
-    }
-
-    const labels = Array.from({ length: 5 }, (_, i) => i + 1);
-    dispatchChartData({
-      type: UPDATE_RADAR_DATA,
-      payload: {
-        labels,
-        datasets,
-        isLoading: false,
-      },
-    });
+    } catch (error) {}
   }, []);
 
   useEffect(() => {
     fetchforPieChart();
     fetchForRadarChart();
+    return () => {
+      pieFetchAbortControllerRef.current?.abort();
+      radarFetchAbortControllerRef.current?.abort();
+    };
   }, []);
 
   return (
