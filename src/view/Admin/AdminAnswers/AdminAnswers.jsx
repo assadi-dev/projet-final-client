@@ -3,6 +3,7 @@ import useFetchData from "../../../hook/useAdminFetchData";
 import { createColumnHelper } from "@tanstack/react-table";
 import DataTableCollapse from "../../../components/DataTableCollapse/DataTableCollapse";
 import SubRowAnswerComponentView from "./SubRowAnswerComponentView";
+import ReactPaginate from "react-paginate";
 
 export const AdminAnswers = () => {
   const participantsPromise = useFetchData();
@@ -49,6 +50,15 @@ export const AdminAnswers = () => {
     };
   }, []);
 
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % items.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
+    );
+    //setItemOffset(newOffset);
+  };
+
   return (
     <div>
       <h1> Reponses de participants</h1>
@@ -58,6 +68,15 @@ export const AdminAnswers = () => {
         isLoading={participantsPromise.isLoading}
         expanded={expanded}
         renderSubComponent={SubRowAnswerComponentView}
+      />
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={44}
+        previousLabel="< previous"
+        renderOnZeroPageCount={null}
       />
     </div>
   );
