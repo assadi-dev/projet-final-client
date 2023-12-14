@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 
-const Completed = () => {
+const CompletedView = () => {
     const {token} = useParams()
     return <div>
             <p>Merci d'avoir participer à ce sondage</p>
@@ -8,4 +8,4 @@ const Completed = () => {
         </div>
 }
 
-export default Completed
+export default CompletedView

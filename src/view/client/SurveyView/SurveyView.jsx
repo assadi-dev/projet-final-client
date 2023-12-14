@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import useClientFetchData from "../../hook/useClientFetchData";
 import { useParams } from "react-router";
