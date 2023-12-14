@@ -4,38 +4,46 @@ import { createColumnHelper } from "@tanstack/react-table";
 import DataTable from "../../../components/DataTable/DataTable";
 
 export const AdminAnswers = () => {
-  const { data, isLoading, errors, fetch, abortController } = useFetchData();
+  const participantsPromise = useFetchData();
   const [surveySelected, setSurveySelected] = useState({});
   const [isOpen, setIsOpen] = useState(false);
 
   const columnHelper = createColumnHelper();
 
   const COLUMN = [
-    columnHelper.accessor("question_number", {
-      header: () => "Numero de la question",
+    columnHelper.accessor("survey", {
+      header: () => "Sondage",
       cell: (info) => info.getValue(),
     }),
-    columnHelper.accessor("question_body", {
-      header: () => "Corps de la question",
+    columnHelper.accessor("email", {
+      header: () => "Email du participant",
       cell: (info) => info.getValue(),
     }),
-    columnHelper.accessor("value", {
-      header: () => "Reponse",
+    columnHelper.accessor("created_at", {
+      header: () => "date de participation",
       cell: (info) => info.getValue(),
+    }),
+    columnHelper.display({
+      id: "Action",
+      cell: <button>voir les reponses</button>,
     }),
   ];
 
   useEffect(() => {
-    fetch("/answers");
+    participantsPromise.fetch("/participants");
     return () => {
-      abortController?.abort();
+      participantsPromise?.abortController?.abort();
     };
   }, []);
 
   return (
     <div>
       <h1> Reponses de participants</h1>
-      <DataTable columns={COLUMN} data={data?.data} isLoading={isLoading} />
+      <DataTable
+        columns={COLUMN}
+        data={participantsPromise.data?.data}
+        isLoading={participantsPromise.isLoading}
+      />
     </div>
   );
 };
