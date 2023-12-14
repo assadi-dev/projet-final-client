@@ -6,7 +6,7 @@ import useFetchData from "../../../hook/useAdminFetchData";
 const RenderListView = ({ token }) => {
   if (!token) return;
 
-  const promise = useFetchData();
+  const { data, isLoading, error, abortController, fetch } = useFetchData();
 
   const columnHelper = createColumnHelper();
   const COLUMN = [
@@ -26,19 +26,15 @@ const RenderListView = ({ token }) => {
 
   useEffect(() => {
     if (!token) return;
-    promise.fetch(`/admin/answers/${token}`);
+    fetch(`/admin/answers/${token}`);
     return () => {
-      promise.abortController.abort();
+      abortController.abort();
     };
   }, [token]);
 
   return (
     <div>
-      <DataTable
-        columns={COLUMN}
-        data={promise?.data?.data}
-        isLoading={promise.isLoading}
-      />
+      <DataTable columns={COLUMN} data={data?.data} isLoading={isLoading} />
     </div>
   );
 };
