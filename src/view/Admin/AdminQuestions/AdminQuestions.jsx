@@ -4,11 +4,12 @@ import { createColumnHelper } from "@tanstack/react-table";
 import useFetchData from "../../../hook/useAdminFetchData";
 import Modal from "../../../components/Modal";
 import RenderListQuestion from "./RenderListQuestion";
+import DataTableCollapse from "../../../components/DataTableCollapse/DataTableCollapse";
+import SubRowSurveyComponentView from "./SubRowSurveyComponentView";
 
 const AdminQuestions = () => {
   const { data, isLoading, errors, fetch, abortController } = useFetchData();
-  const [surveySelected, setSurveySelected] = useState({});
-  const [isOpen, setIsOpen] = useState(false);
+  const [expanded, setExpanded] = useState({});
 
   const columnHelper = createColumnHelper();
 
@@ -24,21 +25,12 @@ const AdminQuestions = () => {
     columnHelper.display({
       id: "Action",
       cell: ({ row }) => (
-        <button onClick={() => handleShowListQuestion(row?.original)}>
+        <button onClick={() => handleClickCollapseRow(row)}>
           voir les questions
         </button>
       ),
     }),
   ];
-
-  const toggleModal = () => {
-    setIsOpen((current) => (current = !current));
-  };
-
-  const handleShowListQuestion = (survey) => {
-    setSurveySelected(survey);
-    toggleModal();
-  };
 
   useEffect(() => {
     fetch("/surveys");
@@ -47,13 +39,23 @@ const AdminQuestions = () => {
     };
   }, []);
 
+  const handleClickCollapseRow = (row) => {
+    const isExpended = row.getIsExpanded();
+    setExpanded(
+      (current) => (current = { ...current, [row.index]: !isExpended })
+    );
+  };
+
   return (
     <div>
       <h1> Questionnaire</h1>
-      <DataTable columns={COLUMN} data={data?.data} isLoading={isLoading} />
-      <Modal isOpen={isOpen} closeModal={toggleModal}>
-        <RenderListQuestion surveyData={surveySelected} />
-      </Modal>
+      <DataTableCollapse
+        columns={COLUMN}
+        data={data?.data}
+        isLoading={isLoading}
+        expanded={expanded}
+        renderSubComponent={SubRowSurveyComponentView}
+      />
     </div>
   );
 };
