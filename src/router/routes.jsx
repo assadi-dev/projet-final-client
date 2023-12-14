@@ -9,6 +9,7 @@ import AdminLogin from "../view/admin/AdminLogin/AdminLogin";
 import AdminQuestions from "../view/admin/AdminQuestions/AdminQuestions";
 import { AdminAnswers } from "../view/admin/AdminAnswers/AdminAnswers";
 import { useRedirect } from "./AuthRedirect";
+import AnswerView from "../view/client/AnswerView/AnswerView";
 
 export default createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export default createBrowserRouter([
   {
     path: "/completed/:token",
     element: <CompletedView />
+  },
+  {
+    path: "/answers/:token",
+    element: <AnswerView />
   },
   {
     path: "login",
