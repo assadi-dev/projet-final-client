@@ -6,8 +6,6 @@ import SubComponentView from "./SubComponentView";
 
 export const AdminAnswers = () => {
   const participantsPromise = useFetchData();
-  const [surveySelected, setSurveySelected] = useState({});
-  const [isOpen, setIsOpen] = useState(false);
   const [expanded, setExpanded] = useState({});
 
   const columnHelper = createColumnHelper();

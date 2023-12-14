@@ -2,16 +2,17 @@ import React, { useEffect } from "react";
 import useFetchData from "../../../hook/useAdminFetchData";
 
 const RenderListQuestion = ({ surveyData }) => {
-  const { fetch, isLoading, data, error } = useFetchData();
+  const { fetch, isLoading, data, error, abortController } = useFetchData();
 
   useEffect(() => {
     fetch(`/questions/${surveyData?.id}`);
+    return () => {
+      abortController?.abort();
+    };
   }, []);
 
   return (
     <div>
-      <p>Questions de {surveyData?.title}</p>
-
       <div>
         <table>
           <thead>
@@ -19,7 +20,6 @@ const RenderListQuestion = ({ surveyData }) => {
               <th>Numéro</th>
               <th>Intitulé</th>
               <th>Type</th>
-              <th>Proposition</th>
             </tr>
           </thead>
           <tbody>
