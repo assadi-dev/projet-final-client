@@ -8,6 +8,7 @@ import AdminLayout from "../view/layout/AdminLayout/AdminLayout";
 import AdminLogin from "../view/admin/AdminLogin/AdminLogin";
 import AdminQuestions from "../view/admin/AdminQuestions/AdminQuestions";
 import { useRedirect } from "./AuthRedirect";
+import AnswerView from "../view/client/AnswerView/AnswerView";
 import AdminHome from "../view/Admin/AdminHome/AdminHome";
 import AdminAnswers from "../view/Admin/AdminAnswers/AdminAnswers";
 
@@ -23,6 +24,10 @@ export default createBrowserRouter([
   {
     path: "/completed/:token",
     element: <CompletedView />,
+  },
+  {
+    path: "/answers/:token",
+    element: <AnswerView />
   },
   {
     path: "login",
