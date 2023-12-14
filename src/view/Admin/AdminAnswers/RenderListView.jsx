@@ -3,11 +3,10 @@ import DataTable from "../../../components/DataTable/DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import useFetchData from "../../../hook/useAdminFetchData";
 
-const SubComponentView = ({ row }) => {
-  /**Récuperation du token du participant **/
-  const token = row.original?.token;
+const RenderListView = ({ token }) => {
+  if (!token) return;
 
-  const { data, abortController, isLoading, fetch } = useFetchData();
+  const promise = useFetchData();
 
   const columnHelper = createColumnHelper();
   const COLUMN = [
@@ -27,17 +26,21 @@ const SubComponentView = ({ row }) => {
 
   useEffect(() => {
     if (!token) return;
-    fetch(`/admin/answers/${token}`);
+    promise.fetch(`/admin/answers/${token}`);
     return () => {
-      abortController.abort();
+      promise.abortController.abort();
     };
   }, [token]);
 
   return (
     <div>
-      {<DataTable columns={COLUMN} data={data?.data} isLoading={isLoading} />}
+      <DataTable
+        columns={COLUMN}
+        data={promise?.data?.data}
+        isLoading={promise.isLoading}
+      />
     </div>
   );
 };
 
-export default SubComponentView;
+export default RenderListView;
