@@ -11,7 +11,7 @@ export const AdminAnswers = () => {
   const columnHelper = createColumnHelper();
 
   const COLUMN = [
-    columnHelper.accessor("survey", {
+    columnHelper.accessor("survey.title", {
       header: () => "Sondage",
       cell: (info) => info.getValue(),
     }),
