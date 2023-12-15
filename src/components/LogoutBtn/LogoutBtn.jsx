@@ -2,6 +2,7 @@ import React from "react";
 import { revokeToken } from "../../services/api/authApi";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { FaPowerOff } from "react-icons/fa6";
 
 const LogoutBtn = () => {
   const [isLoading, setisloading] = React.useState(false);
@@ -25,7 +26,13 @@ const LogoutBtn = () => {
   const TEXT_BTN = isLoading ? "Deconnexion en cours" : "Déconnexion";
 
   return (
-    <button type="button" onClick={resetAction} disabled={isLoading}>
+    <button
+      className="btn btn-danger d-flex align-items-center"
+      type="button"
+      onClick={resetAction}
+      disabled={isLoading}
+    >
+      <FaPowerOff className="me-1" />
       {TEXT_BTN}
     </button>
   );
