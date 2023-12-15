@@ -5,12 +5,16 @@ import AdminSidebar from "./AdminSidebar";
 
 const AdminLayout = () => {
   return (
-    <div className="admin-container">
-      <AdminNavbar />
+    <div className="wrapper">
       <AdminSidebar />
-      <main>
-        <Outlet />
-      </main>
+      <div className="main">
+        <AdminNavbar />
+        <main className="content">
+          <div className="container-fluid p-0">
+            <Outlet />
+          </div>
+        </main>
+      </div>
     </div>
   );
 };

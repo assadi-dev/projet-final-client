@@ -23,7 +23,24 @@ const RadarChart = ({ title, data, ...props }) => {
     Legend
   );
 
-  return <Radar data={CHART_DATA} {...props} />;
+  return (
+    <div className="card h-100">
+      <div className="card-header">
+        <h5 className="card-title">{title}</h5>
+      </div>
+      <div className="card-body">
+        <div className="chart">
+          <Radar
+            width={"100%"}
+            height={"auto%"}
+            data={CHART_DATA}
+            {...props}
+            options={{ maintainAspectRatio: false }}
+          />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default RadarChart;

@@ -4,20 +4,10 @@ import { createColumnHelper } from "@tanstack/react-table";
 import useFetchData from "../../../hook/useAdminFetchData";
 
 const RenderListView = ({ token }) => {
-<<<<<<< Updated upstream
   if (!token) return;
 
-  const promise = useFetchData();
-=======
   const { data, isLoading, error, abortController, fetch } = useFetchData();
-  useEffect(() => {
-    if (!token) return;
-    fetch(`/admin/answers/${token}`);
-    return () => {
-      abortController.abort();
-    };
-  }, [token, abortController, fetch]);
->>>>>>> Stashed changes
+  const promise = useFetchData();
 
   const columnHelper = createColumnHelper();
   const COLUMN = [
@@ -38,9 +28,9 @@ const RenderListView = ({ token }) => {
 <<<<<<< Updated upstream
   useEffect(() => {
     if (!token) return;
-    promise.fetch(`/admin/answers/${token}`);
+    fetch(`/admin/answers/${token}`);
     return () => {
-      promise.abortController.abort();
+      abortController.abort();
     };
   }, [token]);
 
@@ -48,11 +38,7 @@ const RenderListView = ({ token }) => {
 >>>>>>> Stashed changes
   return (
     <div>
-      <DataTable
-        columns={COLUMN}
-        data={promise?.data?.data}
-        isLoading={promise.isLoading}
-      />
+      <DataTable columns={COLUMN} data={data?.data} isLoading={isLoading} />
     </div>
   );
 };

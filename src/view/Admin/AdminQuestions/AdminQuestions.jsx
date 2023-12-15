@@ -6,6 +6,7 @@ import Modal from "../../../components/Modal";
 import RenderListQuestion from "./RenderListQuestion";
 import DataTableCollapse from "../../../components/DataTableCollapse/DataTableCollapse";
 import SubRowSurveyComponentView from "./SubRowSurveyComponentView";
+import { FaEye } from "react-icons/fa6";
 
 const AdminQuestions = () => {
   const { data, isLoading, errors, fetch, abortController } = useFetchData();
@@ -25,8 +26,14 @@ const AdminQuestions = () => {
     columnHelper.display({
       id: "Action",
       cell: ({ row }) => (
-        <button onClick={() => handleClickCollapseRow(row)}>
-          voir les questions
+        <button
+          className="btn btn-primary"
+          onClick={() => handleClickCollapseRow(row)}
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Afficher les questions"
+        >
+          <FaEye />
         </button>
       ),
     }),
