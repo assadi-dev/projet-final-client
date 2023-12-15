@@ -19,6 +19,9 @@ const AdminLogin = () => {
   const {
     register,
     handleSubmit,
+    setValue,
+    clearErrors,
+    setError,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -29,17 +32,19 @@ const AdminLogin = () => {
   const submitForm = async (values) => {
     setisloading(true);
     try {
+      errors.login && clearErrors("login");
       const res = await login(values);
       if (res.data.token)
         Cookies.set(TOKEN_STORAGE, res.data.token?.trim(), { expires: 1 });
       location.replace("/administration");
     } catch (error) {
-      let meassage = error.message;
+      let message = error.message;
       const errorData = error?.response?.data;
 
       if (errorData) {
-        meassage = errorData.message;
+        message = errorData.message;
       }
+      setError("login", { message });
     } finally {
       setisloading(false);
     }
@@ -89,6 +94,23 @@ const AdminLogin = () => {
                         <div className="color text-danger mt-1">
                           {errors.password && errors.password.message}
                         </div>
+                      </div>
+                      <div className="my-3">
+                        {errors.login && (
+                          <div
+                            className="alert alert-warning alert-dismissible fade show"
+                            role="alert"
+                          >
+                            {errors.login.message}
+
+                            <button
+                              type="button"
+                              className="btn-close"
+                              data-bs-dismiss="alert"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                        )}
                       </div>
 
                       <div className="d-grid gap-2 mt-3">
