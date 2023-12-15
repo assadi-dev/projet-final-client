@@ -27,10 +27,10 @@ export default createBrowserRouter([
   },
   {
     path: "/answers/:token",
-    element: <AnswerView />
+    element: <AnswerView />,
   },
   {
-    path: "login",
+    path: "administration/login",
     element: <AdminLogin />,
   },
   {
