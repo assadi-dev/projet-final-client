@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const AdminSidebar = () => {
   const sidebarNavigation = [
@@ -20,9 +20,9 @@ const AdminSidebar = () => {
   return (
     <nav id="sidebar" className="sidebar js-sidebar">
       <div className="sidebar-content js-simplebar">
-        <a className="sidebar-brand" href="index.html">
-          <span className="align-middle">AdminKit</span>
-        </a>
+        <Link className="sidebar-brand" to={sidebarNavigation[0].to}>
+          <span className="align-middle">Big Screen</span>
+        </Link>
 
         <ul className="sidebar-nav">
           {sidebarNavigation.map((item) => {
