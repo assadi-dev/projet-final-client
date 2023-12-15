@@ -4,6 +4,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import DataTableCollapse from "../../../components/DataTableCollapse/DataTableCollapse";
 import SubRowAnswerComponentView from "./SubRowAnswerComponentView";
 import { FaEye } from "react-icons/fa6";
+import { dateFormatTostring } from "../../../utils/dateFormat";
 
 export const AdminAnswers = () => {
   const participantsPromise = useFetchData();
@@ -22,7 +23,7 @@ export const AdminAnswers = () => {
     }),
     columnHelper.accessor("created_at", {
       header: () => "date de participation",
-      cell: (info) => info.getValue(),
+      cell: (info) => dateFormatTostring(info.getValue()),
     }),
     columnHelper.display({
       id: "Action",
