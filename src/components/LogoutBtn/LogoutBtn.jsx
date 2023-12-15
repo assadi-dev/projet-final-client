@@ -14,7 +14,7 @@ const LogoutBtn = () => {
     try {
       revokeToken();
       Cookies.remove(AUTH_TOKEN);
-      navigate("/login", { replace: true });
+      navigate("/administration/login", { replace: true });
     } catch (error) {
       console.log(error.message);
     } finally {
