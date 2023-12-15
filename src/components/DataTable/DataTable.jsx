@@ -19,7 +19,7 @@ const DataTable = ({ columns, data, isLoading }) => {
   });
 
   return (
-    <table>
+    <table className="table table-hover">
       <thead>
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>

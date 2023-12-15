@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from "react";
-import DataTable from "../../../components/DataTable/DataTable";
+import React, { useEffect, useMemo, useState } from "react";
 import { createColumnHelper } from "@tanstack/react-table";
 import useFetchData from "../../../hook/useAdminFetchData";
-import Modal from "../../../components/Modal";
-import RenderListQuestion from "./RenderListQuestion";
 import DataTableCollapse from "../../../components/DataTableCollapse/DataTableCollapse";
 import SubRowSurveyComponentView from "./SubRowSurveyComponentView";
 import { FaEye } from "react-icons/fa6";
 import PageCardWrapper from "../PageCardWrapper/PageCardWrapper";
+import PaginationView from "../../../components/PaginationView/PaginationView";
 
 const AdminQuestions = () => {
   const { data, isLoading, errors, fetch, abortController } = useFetchData();
   const [expanded, setExpanded] = useState({});
+  const [pageIndex, setPageIndex] = useState(0);
+
+  const PAGE_COUNT = useMemo(() => {
+    return data?.meta?.last_page || 1;
+  }, [data]);
 
   const columnHelper = createColumnHelper();
 
@@ -28,7 +31,7 @@ const AdminQuestions = () => {
       id: "Action",
       cell: ({ row }) => (
         <button
-          className="btn btn-primary"
+          className="btn btn-primary btn-sm"
           onClick={() => handleClickCollapseRow(row)}
           data-bs-toggle="tooltip"
           data-bs-placement="top"
@@ -41,17 +44,21 @@ const AdminQuestions = () => {
   ];
 
   useEffect(() => {
-    fetch("/surveys");
-    return () => {
-      abortController?.abort();
+    const params = {
+      page: pageIndex,
     };
-  }, []);
+    fetch("/surveys", params);
+  }, [pageIndex]);
 
   const handleClickCollapseRow = (row) => {
     const isExpended = row.getIsExpanded();
     setExpanded(
       (current) => (current = { ...current, [row.index]: !isExpended })
     );
+  };
+  const handlePageClick = (event) => {
+    const nextPage = event.selected + 1;
+    setPageIndex(nextPage);
   };
 
   return (
@@ -63,6 +70,7 @@ const AdminQuestions = () => {
         expanded={expanded}
         renderSubComponent={SubRowSurveyComponentView}
       />
+      <PaginationView onPageChange={handlePageClick} pageCount={PAGE_COUNT} />
     </PageCardWrapper>
   );
 };

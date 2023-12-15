@@ -36,7 +36,7 @@ const DataTableCollapse = ({
   });
 
   return (
-    <table className="table">
+    <table className="table table-hover">
       <thead>
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
