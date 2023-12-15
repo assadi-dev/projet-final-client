@@ -27,6 +27,7 @@ const AdminLogin = () => {
   const [isLoading, setisloading] = React.useState(false);
 
   const submitForm = async (values) => {
+    console.log(values);
     setisloading(true);
     try {
       const res = await login(values);
@@ -49,18 +50,67 @@ const AdminLogin = () => {
   const TEXT_BTN = isLoading ? "Conexxion en cours" : "connexion";
 
   return (
-    <div>
-      <p>AdminLogin</p>
-      <form onSubmit={handleSubmit(submitForm)}>
-        <input type="email" {...register("email")} />
-        <small>{errors.email && errors.email.message}</small>
-        <input type="password" {...register("password")} />
-        <small>{errors.password && errors.password.message}</small>
-        <button type="submit" disabled={isLoading}>
-          {TEXT_BTN}
-        </button>
-      </form>
-    </div>
+    <main className="d-flex w-100">
+      <div className="container d-flex flex-column">
+        <div className="row vh-100">
+          <div className="col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto d-table h-100">
+            <div className="d-table-cell align-middle">
+              <div className="text-center mt-4">
+                <h1 className="h2">Administration</h1>
+              </div>
+
+              <div className="card">
+                <div className="card-body">
+                  <div className="m-sm-3">
+                    <form onSubmit={handleSubmit(submitForm)}>
+                      <div className="mb-3">
+                        <label htmlFor="email" className="form-label">
+                          Email
+                        </label>
+                        <input
+                          className="form-control form-control-lg"
+                          placeholder="Entrer votre email"
+                          type="email"
+                          {...register("email")}
+                        />
+                        <div className="color text-danger mt-1">
+                          {errors.password && errors.password.message}
+                        </div>
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="password" className="form-label">
+                          Mot de passe
+                        </label>
+                        <input
+                          className="form-control form-control-lg"
+                          type="password"
+                          placeholder="Entrer votre mot de passe"
+                          {...register("password")}
+                        />
+
+                        <div className="color text-danger mt-1">
+                          {errors.password && errors.password.message}
+                        </div>
+                      </div>
+
+                      <div className="d-grid gap-2 mt-3">
+                        <button
+                          className="btn btn-lg btn-primary"
+                          type="submit"
+                          disabled={isLoading}
+                        >
+                          {TEXT_BTN}
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 };
 
