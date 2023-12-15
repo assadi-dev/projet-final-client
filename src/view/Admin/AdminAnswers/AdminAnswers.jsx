@@ -87,15 +87,18 @@ export const AdminAnswers = () => {
         breakLabel="..."
         nextLabel=">>"
         nextLinkClassName="page-link"
+        nextClassName="page-item"
         pageLinkClassName="page-link"
-        activeLinkClassName=""
+        activeLinkClassName="active"
+        activeClassName="active"
         onPageChange={handlePageClick}
         pageRangeDisplayed={5}
         pageCount={PAGE_COUNT}
         previousLabel="<<"
         previousLinkClassName="page-link"
-        className="pagination"
-        activeClassName="active"
+        previousClassName="page-item"
+        pageClassName="page-item"
+        containerClassName="pagination"
       />
     </PageCardWrapper>
   );
