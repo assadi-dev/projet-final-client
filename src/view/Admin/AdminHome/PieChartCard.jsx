@@ -34,7 +34,23 @@ const PieChartCard = ({
     };
   }, [datas, labels]);
 
-  return <Pie data={CHART_DATA} width={"100%"} {...props} />;
+  return (
+    <div className="card h-100">
+      <div className="card-header">
+        <h5 className="card-title">{title}</h5>
+      </div>
+      <div className="card-body">
+        <div className="chart">
+          <Pie
+            data={CHART_DATA}
+            width={"100%"}
+            {...props}
+            options={{ maintainAspectRatio: false }}
+          />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default PieChartCard;

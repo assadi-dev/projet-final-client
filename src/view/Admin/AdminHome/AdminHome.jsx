@@ -90,51 +90,48 @@ const AdminHome = () => {
   }, []);
 
   return (
-    <div>
-      <div style={defaultStyle}>
-        {!charDataState.question6.isLoading && (
+    <>
+      <div className="row mb-4">
+        <div className=" col-sm-6">
           <PieChartCard
             title={`Question 6: Quel marque de casque VR utilisez-vous ?`}
             labels={charDataState.question6.labels}
             datas={charDataState.question6.data}
           />
-        )}
-      </div>
-      <div style={defaultStyle}>
-        {!charDataState.question7.isLoading && (
+        </div>
+        <div className=" col-sm-6">
           <PieChartCard
             title={`Question 7: Sur quel magasin d’application achetez vous des contenus VR ?`}
             labels={charDataState.question7.labels}
             datas={charDataState.question7.data}
           />
-        )}
+        </div>
       </div>
-      <div style={defaultStyle}>
-        {!charDataState.question10.isLoading && (
+      <div className="row">
+        <div className=" col-sm-6">
           <PieChartCard
             title={`Question 10: Vous utilisez principalement Bigscreen pour :`}
             labels={charDataState.question10.labels}
             datas={charDataState.question10.data}
           />
-        )}
-      </div>
-      <div style={defaultStyle}>
-        {!charDataState.radarChartData.isLoading && (
+        </div>
+        <div className=" col-sm-6">
           <RadarChart
+            title="Question 11 à 15"
             data={{
               datasets: charDataState.radarChartData.datasets,
               labels: charDataState.radarChartData.labels,
             }}
           />
-        )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
 const defaultStyle = {
   width: "100%",
-  height: "400px",
+  height: "auto",
   display: "flex",
   placeItem: "center",
 };

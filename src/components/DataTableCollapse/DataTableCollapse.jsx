@@ -35,7 +35,7 @@ const DataTableCollapse = ({
   });
 
   return (
-    <table>
+    <table className="table">
       <thead>
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
