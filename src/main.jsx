@@ -8,7 +8,6 @@ import "./assets/modules/bootstrap.js";
 
 // AdminKit (required)
 import "./assets/modules/bootstrap";
-import "./assets/modules/sidebar";
 import "./assets/modules/theme";
 import "./assets/modules/feather";
 
