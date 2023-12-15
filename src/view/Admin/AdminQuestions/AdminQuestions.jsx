@@ -7,6 +7,7 @@ import RenderListQuestion from "./RenderListQuestion";
 import DataTableCollapse from "../../../components/DataTableCollapse/DataTableCollapse";
 import SubRowSurveyComponentView from "./SubRowSurveyComponentView";
 import { FaEye } from "react-icons/fa6";
+import PageCardWrapper from "../PageCardWrapper/PageCardWrapper";
 
 const AdminQuestions = () => {
   const { data, isLoading, errors, fetch, abortController } = useFetchData();
@@ -54,8 +55,7 @@ const AdminQuestions = () => {
   };
 
   return (
-    <div>
-      <h1> Questionnaire</h1>
+    <PageCardWrapper pageTitle="Questionnaire">
       <DataTableCollapse
         columns={COLUMN}
         data={data?.data}
@@ -63,7 +63,7 @@ const AdminQuestions = () => {
         expanded={expanded}
         renderSubComponent={SubRowSurveyComponentView}
       />
-    </div>
+    </PageCardWrapper>
   );
 };
 

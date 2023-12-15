@@ -6,6 +6,7 @@ import SubRowAnswerComponentView from "./SubRowAnswerComponentView";
 import { FaEye } from "react-icons/fa6";
 import { dateFormatTostring } from "../../../utils/dateFormat";
 import ReactPaginate from "react-paginate";
+import PageCardWrapper from "../PageCardWrapper/PageCardWrapper";
 export const AdminAnswers = () => {
   const [expanded, setExpanded] = useState({});
   const [pageIndex, setPageIndex] = useState(0);
@@ -74,8 +75,7 @@ export const AdminAnswers = () => {
   };
 
   return (
-    <div>
-      <h1> Reponses de participants</h1>
+    <PageCardWrapper pageTitle="Reponses de participants" className="row">
       <DataTableCollapse
         columns={COLUMN}
         data={participantsPromise?.data?.data}
@@ -97,7 +97,7 @@ export const AdminAnswers = () => {
         className="pagination"
         activeClassName="active"
       />
-    </div>
+    </PageCardWrapper>
   );
 };
 
