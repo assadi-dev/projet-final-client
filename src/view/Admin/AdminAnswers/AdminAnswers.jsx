@@ -3,7 +3,6 @@ import useFetchData from "../../../hook/useAdminFetchData";
 import { createColumnHelper } from "@tanstack/react-table";
 import DataTableCollapse from "../../../components/DataTableCollapse/DataTableCollapse";
 import SubRowAnswerComponentView from "./SubRowAnswerComponentView";
-import ReactPaginate from "react-paginate";
 
 export const AdminAnswers = () => {
   const participantsPromise = useFetchData();
@@ -76,15 +75,6 @@ export const AdminAnswers = () => {
         expanded={expanded}
         renderSubComponent={SubRowAnswerComponentView}
       />
-      {/*       <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={44}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
-      /> */}
     </div>
   );
 };
