@@ -7,7 +7,7 @@ import { Outlet, redirect } from "react-router-dom";
  */
 export const useRedirect = () => {
   const TOKEN_STORAGE = Cookies.get(import.meta.env.VITE_TOKEN_STORAGE);
-  if (!TOKEN_STORAGE) return redirect("/login");
+  if (!TOKEN_STORAGE) return redirect("/administration/login");
   console.log("connecté");
   return <Outlet />;
 };
