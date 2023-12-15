@@ -32,6 +32,7 @@ const DataTableCollapse = ({
     getSubRows: (rows) => rows.subRows,
     getExpandedRowModel: getExpandedRowModel(),
     manualExpanding: true,
+    manualPagination: true,
   });
 
   return (

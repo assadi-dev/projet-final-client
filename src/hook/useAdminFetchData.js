@@ -7,7 +7,7 @@ import { adminInstance } from "../services/instance";
  * @param {object} params objet contenant les parametres de la requete
  * @returns
  */
-const useFetchData = (url, params) => {
+const useFetchData = () => {
   const [state, setState] = useState({
     isLoading: true,
     data: null,
@@ -20,24 +20,23 @@ const useFetchData = (url, params) => {
   const abortControllerRef = useRef(new AbortController());
 
   const { isLoading, data, errors } = state;
-  const fetch = useCallback(
-    async (url, params) => {
-      try {
-        params = params || {};
-        const res = await adminInstance.get(url, {
-          signal: abortControllerRef.current?.signal,
-          params: { ...params },
-        });
+  const fetch = useCallback(async (url, params) => {
+    try {
+      setState((prevState) => ({ ...prevState, isLoading: true }));
 
-        setState((prevState) => ({ ...prevState, data: res.data }));
-      } catch (error) {
-        setState((prevState) => ({ ...prevState, errors: error }));
-      } finally {
-        setState((prevState) => ({ ...prevState, isLoading: false }));
-      }
-    },
-    [url, params]
-  );
+      params = params || {};
+      const res = await adminInstance.get(url, {
+        signal: abortControllerRef.current?.signal,
+        params: { ...params },
+      });
+
+      setState((prevState) => ({ ...prevState, data: res.data }));
+    } catch (error) {
+      setState((prevState) => ({ ...prevState, errors: error }));
+    } finally {
+      setState((prevState) => ({ ...prevState, isLoading: false }));
+    }
+  }, []);
 
   return {
     isLoading,

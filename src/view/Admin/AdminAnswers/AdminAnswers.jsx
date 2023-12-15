@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import useFetchData from "../../../hook/useAdminFetchData";
 import { createColumnHelper } from "@tanstack/react-table";
 import DataTableCollapse from "../../../components/DataTableCollapse/DataTableCollapse";
 import SubRowAnswerComponentView from "./SubRowAnswerComponentView";
 import { FaEye } from "react-icons/fa6";
 import { dateFormatTostring } from "../../../utils/dateFormat";
-
+import ReactPaginate from "react-paginate";
 export const AdminAnswers = () => {
-  const participantsPromise = useFetchData();
   const [expanded, setExpanded] = useState({});
+  const [pageIndex, setPageIndex] = useState(0);
+  const participantsPromise = useFetchData();
 
   const columnHelper = createColumnHelper();
 
@@ -47,27 +48,29 @@ export const AdminAnswers = () => {
     );
   };
 
-  // We start with an empty list of items.
-  const [currentItems, setCurrentItems] = useState(null);
-  const [pageCount, setPageCount] = useState(0);
-  // Here we use item offsets; we could also use page offsets
-  // following the API or data you're working with.
-  const [itemOffset, setItemOffset] = useState(0);
-
   useEffect(() => {
-    participantsPromise.fetch("/participants");
-    return () => {
-      participantsPromise?.abortController?.abort();
+    const params = {
+      page: pageIndex,
     };
-  }, []);
+
+    participantsPromise.fetch(`/participants?page${pageIndex}`, params);
+  }, [pageIndex, participantsPromise?.abortController]);
+
+  const TOTAL_COUNT = useMemo(() => {
+    return participantsPromise.data?.meta?.total || 0;
+  }, [participantsPromise.data]);
+
+  const ITEM_PER_PAGE = useMemo(() => {
+    return participantsPromise.data?.meta?.per_page || 0;
+  }, [participantsPromise.data]);
+  const PAGE_COUNT = useMemo(() => {
+    return participantsPromise.data?.meta?.last_page || 1;
+  }, [participantsPromise.data]);
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-    /*  const newOffset = (event.selected * itemsPerPage) % items.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
-    setItemOffset(newOffset); */
+    const nextPage = event.selected + 1;
+    setPageIndex(nextPage);
   };
 
   return (
@@ -79,6 +82,20 @@ export const AdminAnswers = () => {
         isLoading={participantsPromise.isLoading}
         expanded={expanded}
         renderSubComponent={SubRowAnswerComponentView}
+      />
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel=">>"
+        nextLinkClassName="page-link"
+        pageLinkClassName="page-link"
+        activeLinkClassName=""
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={PAGE_COUNT}
+        previousLabel="<<"
+        previousLinkClassName="page-link"
+        className="pagination"
+        activeClassName="active"
       />
     </div>
   );
