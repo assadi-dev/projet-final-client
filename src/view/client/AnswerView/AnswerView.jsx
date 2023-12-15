@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import useClientFetchData from '../../../hook/useClientFetchData'
 import { date } from 'yup'
 import AnwserCard from '../../../components/answer/AnwserCard'
+import style from "./answer.module.css"
 
 const AnswerView = () => {
     // récupération du token en paramètre
@@ -21,25 +22,29 @@ const AnswerView = () => {
     }, [])
     console.log(answers, survey);
     return (
-        <>
-            {(survey.isLoading || answers.isLoading) && <p>Chargment en cours</p>}
-            {
-                (survey.data?.data && answers.data?.data) && 
-                <div>
+        <div className="px-3">
+            <div className="d-flex justify-content-center pt-4">
+                <div className={`mb-5 ${style.answerCtnr}`}>
+                {(survey.isLoading || answers.isLoading) && <p>Chargment en cours</p>}
+                {
+                    (survey.data?.data && answers.data?.data) && 
                     <div>
-                        <h1>{survey.data.data.title}</h1>
-                        <p>{survey.data.data.description}</p>
+                        <div className={`card p-4 ${style.header}`}>
+                            <h1 className="text-white">{survey.data.data.title}</h1>
+                            <p className={`text-white ${style.description}`}>Merci de nous avoir partagé vos opinions <br/> Voici vos réponses</p>
+                        </div>
+                        <div>
+                            {
+                                answers.data.data.map((answer) => (
+                                    <AnwserCard key={answer.id} answer={answer} />
+                                ))
+                            }
+                        </div>
                     </div>
-                    <div>
-                        {
-                            answers.data.data.map((answer) => (
-                                <AnwserCard key={answer.id} answer={answer} />
-                            ))
-                        }
-                    </div>
+                }
                 </div>
-            }
-        </>
+            </div>
+        </div>
     )
 }
 
