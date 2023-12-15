@@ -4,9 +4,8 @@ import { createColumnHelper } from "@tanstack/react-table";
 import useFetchData from "../../../hook/useAdminFetchData";
 
 const RenderListView = ({ token }) => {
-  if (!token) return;
-
   const { data, isLoading, error, abortController, fetch } = useFetchData();
+  const promise = useFetchData();
 
   const columnHelper = createColumnHelper();
   const COLUMN = [
@@ -30,7 +29,7 @@ const RenderListView = ({ token }) => {
     return () => {
       abortController.abort();
     };
-  }, [token]);
+  }, [token, abortController, fetch]);
 
   return (
     <div>

@@ -75,15 +75,6 @@ export const AdminAnswers = () => {
         expanded={expanded}
         renderSubComponent={SubRowAnswerComponentView}
       />
-      {/*       <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={44}
-        previousLabel="< previous"
-        renderOnZeroPageCount={null}
-      /> */}
     </div>
   );
 };

@@ -5,11 +5,12 @@ const RenderListQuestion = ({ surveyData }) => {
   const { fetch, isLoading, data, error, abortController } = useFetchData();
 
   useEffect(() => {
+    if (!surveyData?.id) return;
     fetch(`/questions/${surveyData?.id}`);
     return () => {
       abortController?.abort();
     };
-  }, []);
+  }, [abortController, fetch, surveyData.id]);
 
   return (
     <div>
