@@ -3,6 +3,7 @@ import useFetchData from "../../../hook/useAdminFetchData";
 import { createColumnHelper } from "@tanstack/react-table";
 import DataTableCollapse from "../../../components/DataTableCollapse/DataTableCollapse";
 import SubRowAnswerComponentView from "./SubRowAnswerComponentView";
+import { FaEye } from "react-icons/fa6";
 
 export const AdminAnswers = () => {
   const participantsPromise = useFetchData();
@@ -27,8 +28,11 @@ export const AdminAnswers = () => {
       id: "Action",
       cell: ({ row }) => {
         return (
-          <button onClick={() => handleClickCollapseRow(row)}>
-            voir les reponses
+          <button
+            className="btn btn-primary"
+            onClick={() => handleClickCollapseRow(row)}
+          >
+            <FaEye />
           </button>
         );
       },
