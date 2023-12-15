@@ -1,5 +1,4 @@
 import React, { Suspense } from "react";
-
 const AdminNavbar = () => {
   const LogoutBtn = React.lazy(() =>
     import("../../../components/LogoutBtn/LogoutBtn")
