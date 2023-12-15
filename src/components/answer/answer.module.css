@@ -1,0 +1,23 @@
+.questionNum{
+    background-color: #222E3C;
+    width: max-content;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.questionNum::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}  
+.questionNum::after {
+    right: -20px;
+    border-width: 36px 20px 0 0;
+    border-color: #222E3C transparent transparent transparent;
+}
+.answer{
+    font-size: 1.1rem !important;
+}
