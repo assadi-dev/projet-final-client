@@ -27,7 +27,6 @@ const AdminLogin = () => {
   const [isLoading, setisloading] = React.useState(false);
 
   const submitForm = async (values) => {
-    console.log(values);
     setisloading(true);
     try {
       const res = await login(values);
@@ -41,7 +40,6 @@ const AdminLogin = () => {
       if (errorData) {
         meassage = errorData.message;
       }
-      console.log(meassage);
     } finally {
       setisloading(false);
     }
