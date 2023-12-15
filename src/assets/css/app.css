@@ -11928,14 +11928,14 @@ textarea.form-control-lg {
   --bs-pagination-padding-x: 1.5rem;
   --bs-pagination-padding-y: 0.75rem;
   --bs-pagination-font-size: 0.925rem;
-  --bs-pagination-border-radius: var(--bs-border-radius-lg);
+  --bs-pagination-border-radius: var(--border-radius-lg);
 }
 
 .pagination-sm {
   --bs-pagination-padding-x: 0.5rem;
   --bs-pagination-padding-y: 0.25rem;
   --bs-pagination-font-size: 0.75rem;
-  --bs-pagination-border-radius: var(--bs-border-radius-sm);
+  --bs-pagination-border-radius: var(--border-radius-sm);
 }
 
 .tooltip {
