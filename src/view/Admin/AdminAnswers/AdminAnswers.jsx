@@ -5,8 +5,8 @@ import DataTableCollapse from "../../../components/DataTableCollapse/DataTableCo
 import SubRowAnswerComponentView from "./SubRowAnswerComponentView";
 import { FaEye } from "react-icons/fa6";
 import { dateFormatTostring } from "../../../utils/dateFormat";
-import ReactPaginate from "react-paginate";
 import PageCardWrapper from "../PageCardWrapper/PageCardWrapper";
+import PaginationView from "../../../components/PaginationView/PaginationView";
 export const AdminAnswers = () => {
   const [expanded, setExpanded] = useState({});
   const [pageIndex, setPageIndex] = useState(0);
@@ -32,7 +32,7 @@ export const AdminAnswers = () => {
       cell: ({ row }) => {
         return (
           <button
-            className="btn btn-primary"
+            className="btn btn-primary btn-sm"
             onClick={() => handleClickCollapseRow(row)}
           >
             <FaEye />
@@ -48,27 +48,22 @@ export const AdminAnswers = () => {
       (current) => (current = { ...current, [row.index]: !isExpended })
     );
   };
+  const params = {
+    page: pageIndex,
+  };
 
   useEffect(() => {
-    const params = {
-      page: pageIndex,
-    };
-
     participantsPromise.fetch(`/participants?page${pageIndex}`, params);
   }, [pageIndex, participantsPromise?.abortController]);
 
-  const TOTAL_COUNT = useMemo(() => {
-    return participantsPromise.data?.meta?.total || 0;
-  }, [participantsPromise.data]);
-
-  const ITEM_PER_PAGE = useMemo(() => {
-    return participantsPromise.data?.meta?.per_page || 0;
-  }, [participantsPromise.data]);
   const PAGE_COUNT = useMemo(() => {
     return participantsPromise.data?.meta?.last_page || 1;
   }, [participantsPromise.data]);
 
-  // Invoke when user click to request another page.
+  /**
+   * Fonction qui active ou désactive l'affichage des sous-elements de la row
+   * @param {*} row objet contenant les donnée de la row selectionné
+   */
   const handlePageClick = (event) => {
     const nextPage = event.selected + 1;
     setPageIndex(nextPage);
@@ -83,20 +78,7 @@ export const AdminAnswers = () => {
         expanded={expanded}
         renderSubComponent={SubRowAnswerComponentView}
       />
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel=">>"
-        nextLinkClassName="page-link"
-        pageLinkClassName="page-link"
-        activeLinkClassName=""
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={PAGE_COUNT}
-        previousLabel="<<"
-        previousLinkClassName="page-link"
-        className="pagination"
-        activeClassName="active"
-      />
+      <PaginationView onPageChange={handlePageClick} pageCount={PAGE_COUNT} />
     </PageCardWrapper>
   );
 };

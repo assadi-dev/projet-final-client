@@ -31,6 +31,9 @@ const LogoutBtn = () => {
       type="button"
       onClick={resetAction}
       disabled={isLoading}
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      data-bs-title="Default tooltip"
     >
       <FaPowerOff className="me-1" />
       {TEXT_BTN}
