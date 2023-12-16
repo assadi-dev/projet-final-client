@@ -81,7 +81,7 @@ const AdminLogin = () => {
                           {...register("email")}
                         />
                         <div className="color text-danger mt-1">
-                          {errors.password && errors.password.message}
+                          {errors.email && errors.email.message}
                         </div>
                       </div>
                       <div className="mb-3">
@@ -102,7 +102,7 @@ const AdminLogin = () => {
                       <div className="my-3">
                         {errors.login && (
                           <div
-                            className="alert alert-warning alert-dismissible fade show"
+                            className="alert alert-danger alert-dismissible fade show"
                             role="alert"
                           >
                             {errors.login.message}
