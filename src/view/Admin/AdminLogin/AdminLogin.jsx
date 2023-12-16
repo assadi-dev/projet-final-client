@@ -81,7 +81,7 @@ const AdminLogin = () => {
                           {...register("email")}
                         />
                         <div className="color text-danger mt-1">
-                          {errors.password && errors.password.message}
+                          {errors.email && errors.email.message}
                         </div>
                       </div>
                       <div className="mb-3">
