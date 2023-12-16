@@ -40,14 +40,14 @@ const PieChartCard = ({
         <h5 className="card-title">{title}</h5>
       </div>
       <div className="card-body">
-        <div className="chart">
-          <Pie
-            data={CHART_DATA}
-            width={"100%"}
-            {...props}
-            options={{ maintainAspectRatio: false }}
-          />
-        </div>
+        <Pie
+          data={CHART_DATA}
+          {...props}
+          options={{
+            maintainAspectRatio: false,
+            plugins: { legend: { position: "right" } },
+          }}
+        />
       </div>
     </div>
   );

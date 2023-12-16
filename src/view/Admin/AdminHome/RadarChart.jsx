@@ -29,15 +29,14 @@ const RadarChart = ({ title, data, ...props }) => {
         <h5 className="card-title">{title}</h5>
       </div>
       <div className="card-body">
-        <div className="chart">
-          <Radar
-            width={"100%"}
-            height={"auto%"}
-            data={CHART_DATA}
-            {...props}
-            options={{ maintainAspectRatio: false }}
-          />
-        </div>
+        <Radar
+          data={CHART_DATA}
+          {...props}
+          options={{
+            maintainAspectRatio: false,
+            plugins: { legend: { position: "right" } },
+          }}
+        />
       </div>
     </div>
   );
