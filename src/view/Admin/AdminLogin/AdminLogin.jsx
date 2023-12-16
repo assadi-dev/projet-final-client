@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { login } from "../../../services/api/authApi";
 import Cookies from "js-cookie";
+import { Helmet } from "react-helmet";
 
 const schema = yup.object().shape({
   email: yup.string().email("email non valide").required("Email requis"),
@@ -54,6 +55,9 @@ const AdminLogin = () => {
 
   return (
     <main className="d-flex w-100">
+      <Helmet>
+        <title>Bigscreen - connexion</title>
+      </Helmet>
       <div className="container d-flex flex-column">
         <div className="row vh-100">
           <div className="col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto d-table h-100">
