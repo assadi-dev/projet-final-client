@@ -7,6 +7,7 @@ import {
   PieChartBgColorDefault,
   PieChartBorderColorDefault,
 } from "./helpers";
+import ChartLoader from "./ChartLoader";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -17,6 +18,7 @@ const PieChartCard = ({
   backgroundColor,
   borderColor,
   borderWidth,
+  isLoading = true,
   ...props
 }) => {
   const CHART_DATA = useMemo(() => {
@@ -40,14 +42,18 @@ const PieChartCard = ({
         <h5 className="card-title">{title}</h5>
       </div>
       <div className="card-body">
-        <Pie
-          data={CHART_DATA}
-          {...props}
-          options={{
-            maintainAspectRatio: false,
-            plugins: { legend: { position: "right" } },
-          }}
-        />
+        {isLoading ? (
+          <ChartLoader />
+        ) : (
+          <Pie
+            data={CHART_DATA}
+            {...props}
+            options={{
+              maintainAspectRatio: false,
+              plugins: { legend: { position: "right" } },
+            }}
+          />
+        )}
       </div>
     </div>
   );

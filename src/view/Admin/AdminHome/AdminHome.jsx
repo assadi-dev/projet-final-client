@@ -75,7 +75,6 @@ const AdminHome = () => {
         payload: {
           labels,
           datasets,
-          isLoading: false,
         },
       });
     } catch (error) {}
@@ -98,6 +97,7 @@ const AdminHome = () => {
             title={`Question 6: Quel marque de casque VR utilisez-vous ?`}
             labels={charDataState.question6.labels}
             datas={charDataState.question6.data}
+            isLoading={charDataState.question6.isLoading}
           />
         </div>
         <div className={styles["col-b"]}>
@@ -105,6 +105,7 @@ const AdminHome = () => {
             title={`Question 7: Sur quel magasin d’application achetez vous des contenus VR ?`}
             labels={charDataState.question7.labels}
             datas={charDataState.question7.data}
+            isLoading={charDataState.question7.isLoading}
           />
         </div>
 
@@ -113,6 +114,7 @@ const AdminHome = () => {
             title={`Question 10: Vous utilisez principalement Bigscreen pour :`}
             labels={charDataState.question10.labels}
             datas={charDataState.question10.data}
+            isLoading={charDataState.question10.isLoading}
           />
         </div>
         <div className={styles["col-d"]}>
@@ -122,6 +124,7 @@ const AdminHome = () => {
               datasets: charDataState.radarChartData.datasets,
               labels: charDataState.radarChartData.labels,
             }}
+            isLoading={charDataState.radarChartData.isLoading}
           />
         </div>
       </div>
