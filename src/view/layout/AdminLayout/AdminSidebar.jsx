@@ -21,7 +21,7 @@ const AdminSidebar = () => {
     <nav id="sidebar" className="sidebar js-sidebar">
       <div className="sidebar-content js-simplebar">
         <Link className="sidebar-brand" to={sidebarNavigation[0].to}>
-          <span className="align-middle">Big Screen</span>
+          <span className="align-middle">BIGSCREEN</span>
         </Link>
 
         <ul className="sidebar-nav">
