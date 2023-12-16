@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import useFetchData from "../../../hook/useAdminFetchData";
+import { createColumnHelper } from "@tanstack/react-table";
+import DataTable from "../../../components/DataTable/DataTable";
 
 const RenderListQuestion = ({ surveyData }) => {
   const { fetch, isLoading, data, error, abortController } = useFetchData();
@@ -12,33 +14,26 @@ const RenderListQuestion = ({ surveyData }) => {
     };
   }, [abortController, fetch, surveyData.id]);
 
+  const columnHelper = createColumnHelper();
+  const COLUMN = [
+    columnHelper.accessor("question_number", {
+      header: () => "Numéro de la question",
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("question_body", {
+      header: () => "Corps de la question",
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("question_type", {
+      header: () => "Type",
+      cell: (info) => info.getValue(),
+    }),
+  ];
+
   return (
-    <div>
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Numéro</th>
-              <th>Intitulé</th>
-              <th>Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading && (
-              <tr>
-                <td colSpan={20}>Chargement en cours</td>
-              </tr>
-            )}
-            {!isLoading &&
-              data.data.map((question) => (
-                <tr key={question.id}>
-                  <td>{question.question_number}</td>
-                  <td>{question.question_body}</td>
-                  <td>{question.question_type}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+    <div className="card">
+      <div className="card-body">
+        <DataTable columns={COLUMN} data={data?.data} isLoading={isLoading} />
       </div>
     </div>
   );
