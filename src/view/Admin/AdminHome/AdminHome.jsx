@@ -75,6 +75,7 @@ const AdminHome = () => {
         payload: {
           labels,
           datasets,
+          isLoading: false,
         },
       });
     } catch (error) {}
