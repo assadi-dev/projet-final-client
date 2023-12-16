@@ -7,6 +7,9 @@ import { FaEye } from "react-icons/fa6";
 import { dateFormatTostring } from "../../../utils/dateFormat";
 import PageCardWrapper from "../PageCardWrapper/PageCardWrapper";
 import PaginationView from "../../../components/PaginationView/PaginationView";
+import DatatRowLSpinnerLoader from "../../../components/DefaultRowLoader/DatatRowLSpinnerLoader";
+import { Tooltip } from "react-tooltip";
+
 export const AdminAnswers = () => {
   const [expanded, setExpanded] = useState({});
   const [pageIndex, setPageIndex] = useState(0);
@@ -31,12 +34,17 @@ export const AdminAnswers = () => {
       id: "Action",
       cell: ({ row }) => {
         return (
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={() => handleClickCollapseRow(row)}
-          >
-            <FaEye />
-          </button>
+          <>
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={() => handleClickCollapseRow(row)}
+              data-tooltip-id="btn-tooltip"
+              data-tooltip-content="Cliquer pour voir les reponse"
+            >
+              <FaEye />
+            </button>
+            <Tooltip id="btn-tooltip" place="bottom" />
+          </>
         );
       },
     }),
@@ -77,6 +85,7 @@ export const AdminAnswers = () => {
         isLoading={participantsPromise.isLoading}
         expanded={expanded}
         renderSubComponent={SubRowAnswerComponentView}
+        RowRenderLoader={DatatRowLSpinnerLoader}
       />
       <PaginationView onPageChange={handlePageClick} pageCount={PAGE_COUNT} />
     </PageCardWrapper>

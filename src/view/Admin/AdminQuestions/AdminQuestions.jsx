@@ -6,6 +6,8 @@ import SubRowSurveyComponentView from "./SubRowSurveyComponentView";
 import { FaEye } from "react-icons/fa6";
 import PageCardWrapper from "../PageCardWrapper/PageCardWrapper";
 import PaginationView from "../../../components/PaginationView/PaginationView";
+import DatatRowLSpinnerLoader from "../../../components/DefaultRowLoader/DatatRowLSpinnerLoader";
+import { Tooltip } from "react-tooltip";
 
 const AdminQuestions = () => {
   const { data, isLoading, errors, fetch, abortController } = useFetchData();
@@ -30,15 +32,17 @@ const AdminQuestions = () => {
     columnHelper.display({
       id: "Action",
       cell: ({ row }) => (
-        <button
-          className="btn btn-primary btn-sm"
-          onClick={() => handleClickCollapseRow(row)}
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="Afficher les questions"
-        >
-          <FaEye />
-        </button>
+        <>
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={() => handleClickCollapseRow(row)}
+            data-tooltip-id="btn-tooltip"
+            data-tooltip-content="Cliquer pour voir les questions"
+          >
+            <FaEye />
+          </button>
+          <Tooltip id="btn-tooltip" place="bottom" />
+        </>
       ),
     }),
   ];
@@ -69,6 +73,7 @@ const AdminQuestions = () => {
         isLoading={isLoading}
         expanded={expanded}
         renderSubComponent={SubRowSurveyComponentView}
+        RowRenderLoader={DatatRowLSpinnerLoader}
       />
       <PaginationView onPageChange={handlePageClick} pageCount={PAGE_COUNT} />
     </PageCardWrapper>

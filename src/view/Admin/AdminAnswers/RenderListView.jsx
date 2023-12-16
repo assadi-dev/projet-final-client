@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import DataTable from "../../../components/DataTable/DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import useFetchData from "../../../hook/useAdminFetchData";
+import TroncateText from "../../../components/TroncateText/TroncateText";
 
 const RenderListView = ({ token }) => {
   const { data, isLoading, error, abortController, fetch } = useFetchData();
@@ -10,7 +11,7 @@ const RenderListView = ({ token }) => {
   const columnHelper = createColumnHelper();
   const COLUMN = [
     columnHelper.accessor("question_number", {
-      header: () => "Numéro de la question",
+      header: (props) => "Numéro de la question",
       cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("question_body", {
@@ -19,7 +20,10 @@ const RenderListView = ({ token }) => {
     }),
     columnHelper.accessor("value", {
       header: () => "Reponse",
-      cell: (info) => info.getValue(),
+      cell: (info) =>
+        info.row.original.question_type == "C"
+          ? info.getValue() + " sur 5"
+          : info.getValue(),
     }),
   ];
 
@@ -32,8 +36,10 @@ const RenderListView = ({ token }) => {
   }, [token, abortController, fetch]);
 
   return (
-    <div>
-      <DataTable columns={COLUMN} data={data?.data} isLoading={isLoading} />
+    <div className="card">
+      <div className="card-body">
+        <DataTable columns={COLUMN} data={data?.data} isLoading={isLoading} />
+      </div>
     </div>
   );
 };

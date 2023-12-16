@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-table";
 import EmptyRow from "./EmptyRow";
 import DataRowCollapse from "./DataRowCollapse";
-import DatatRowLoader from "./DatatRowLoader";
+import DefaultRowLoader from "../DefaultRowLoader/DefaultRowLoader";
 
 const DataTableCollapse = ({
   columns,
@@ -16,6 +16,8 @@ const DataTableCollapse = ({
   expanded = {},
   setExpanded = () => {},
   renderSubComponent = ({ row }) => <div>Render subRowComponent here</div>,
+  RowRenderLoader = DefaultRowLoader,
+  ...props
 }) => {
   const COLUMNS = React.useMemo(() => (columns ? columns : []), [columns]);
   const DATA = React.useMemo(() => (data ? data : []), [data]);
@@ -34,9 +36,10 @@ const DataTableCollapse = ({
     manualExpanding: true,
     manualPagination: true,
   });
+  const TABLE_CLASS = `${props?.className} table table-hover`;
 
   return (
-    <table className="table table-hover">
+    <table className={TABLE_CLASS}>
       <thead>
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
@@ -55,7 +58,7 @@ const DataTableCollapse = ({
       </thead>
       <tbody>
         {isLoading ? (
-          <DatatRowLoader />
+          <RowRenderLoader columnsTotalCount={table.getLeafHeaders().length} />
         ) : (
           <DataRowCollapse
             table={table}
