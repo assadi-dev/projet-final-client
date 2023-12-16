@@ -102,7 +102,7 @@ const AdminLogin = () => {
                       <div className="my-3">
                         {errors.login && (
                           <div
-                            className="alert alert-warning alert-dismissible fade show"
+                            className="alert alert-danger alert-dismissible fade show"
                             role="alert"
                           >
                             {errors.login.message}
