@@ -18,7 +18,7 @@ export default createBrowserRouter([
     element: <HomeView />,
   },
   {
-    path: "/survey/:idSurvey",
+    path: "/survey/:surveyToken",
     element: <SurveyView />,
   },
   {

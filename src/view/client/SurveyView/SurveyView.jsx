@@ -13,15 +13,11 @@ const Survey = () => {
   const [submiting, setSubmiting] = useState(false)
   const navigate = useNavigate();
   // récupération de l'id du sondage en paramètre
-  // à changer avec un token après
-  const { idSurvey } = useParams();
+  const { surveyToken } = useParams();
   // à remplacer après avec le useClientFetchData
-  const questionsObjet = useClientFetchData(
-    "/client/questions/" + idSurvey,
-    null
-  );
+  const questionsObjet = useClientFetchData("/client/questions/survey/" + surveyToken, null);
   // récupération des données du sondage
-  const surveyObject = useClientFetchData("/client/surveys/" + idSurvey, null);
+  const surveyObject = useClientFetchData("/client/surveys/" + surveyToken, null);
 
   // construction des valeurs initiales de réponses et schema de validation
   let initValues = {},
@@ -52,14 +48,13 @@ const Survey = () => {
   });
 
   useEffect(() => {
-    questionsObjet.fetch("/client/questions/" + idSurvey, null); //idSurvey sera remplacé par le token
-    surveyObject.fetch("/client/surveys/" + idSurvey, null);
+    questionsObjet.fetch("/client/questions/survey/" + surveyToken, null); //idSurvey sera remplacé par le token
+    surveyObject.fetch("/client/surveys/" + surveyToken, null);
     return () => {
       surveyObject.abortController?.abort();
       questionsObjet.abortController?.abort();
     };
   }, []);
-
   return (
     <div className="px-3">
       <div className="d-flex justify-content-center pt-4">
@@ -78,7 +73,7 @@ const Survey = () => {
               validationSchema={Yup.object(schema)}
               onSubmit={(values) => {
                 const answerObject = formatAnswerObject(
-                  idSurvey,
+                  surveyObject.data.data.id,
                   values,
                   questionsObjet.data.data
                 );
