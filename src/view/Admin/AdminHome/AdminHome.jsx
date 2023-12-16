@@ -14,6 +14,7 @@ import {
   UPDATE_RADAR_DATA,
   initialState,
 } from "./reducer/initialData";
+import styles from "./styles.module.css";
 
 const AdminHome = () => {
   const [charDataState, dispatchChartData] = useReducer(
@@ -91,37 +92,40 @@ const AdminHome = () => {
 
   return (
     <>
-      <div className="row mb-4">
-        <div className=" col-sm-6">
+      <div className={styles["grid-row-charts"]}>
+        <div className={styles["col-a"]}>
           <PieChartCard
             title={`Question 6: Quel marque de casque VR utilisez-vous ?`}
             labels={charDataState.question6.labels}
             datas={charDataState.question6.data}
+            isLoading={charDataState.question6.isLoading}
           />
         </div>
-        <div className=" col-sm-6">
+        <div className={styles["col-b"]}>
           <PieChartCard
             title={`Question 7: Sur quel magasin d’application achetez vous des contenus VR ?`}
             labels={charDataState.question7.labels}
             datas={charDataState.question7.data}
+            isLoading={charDataState.question7.isLoading}
           />
         </div>
-      </div>
-      <div className="row">
-        <div className=" col-sm-6">
+
+        <div className={styles["col-c"]}>
           <PieChartCard
             title={`Question 10: Vous utilisez principalement Bigscreen pour :`}
             labels={charDataState.question10.labels}
             datas={charDataState.question10.data}
+            isLoading={charDataState.question10.isLoading}
           />
         </div>
-        <div className=" col-sm-6">
+        <div className={styles["col-d"]}>
           <RadarChart
             title="Question 11 à 15"
             data={{
               datasets: charDataState.radarChartData.datasets,
               labels: charDataState.radarChartData.labels,
             }}
+            isLoading={charDataState.radarChartData.isLoading}
           />
         </div>
       </div>

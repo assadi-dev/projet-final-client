@@ -10,8 +10,9 @@ import {
 } from "chart.js";
 import { Radar } from "react-chartjs-2";
 import { DATA_RADAR_CHART } from "./helpers";
+import ChartLoader from "./ChartLoader";
 
-const RadarChart = ({ title, data, ...props }) => {
+const RadarChart = ({ title, data, isLoading = true, ...props }) => {
   const CHART_DATA = useMemo(() => data || DATA_RADAR_CHART, [data]);
 
   ChartJS.register(
@@ -29,15 +30,18 @@ const RadarChart = ({ title, data, ...props }) => {
         <h5 className="card-title">{title}</h5>
       </div>
       <div className="card-body">
-        <div className="chart">
+        {isLoading ? (
+          <ChartLoader />
+        ) : (
           <Radar
-            width={"100%"}
-            height={"auto%"}
             data={CHART_DATA}
             {...props}
-            options={{ maintainAspectRatio: false }}
+            options={{
+              maintainAspectRatio: false,
+              plugins: { legend: { position: "right" } },
+            }}
           />
-        </div>
+        )}
       </div>
     </div>
   );
