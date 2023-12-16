@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import useClientFetchData from '../../../hook/useClientFetchData'
-import { date } from 'yup'
 import AnwserCard from '../../../components/answer/AnwserCard'
 import style from "./answer.module.css"
 
