@@ -2,7 +2,7 @@
 .rowLoader
 {
 
-    min-height: 45vh;
+    min-height: 55vh;
     display: grid;
     place-items: center;
 }
