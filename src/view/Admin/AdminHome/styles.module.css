@@ -30,6 +30,12 @@
   
 }
 
+.error-icon
+{
+
+   display: none;
+
+}
 
 @media screen and (min-width:768px) {
     .grid-row-charts{
@@ -48,7 +54,15 @@
        height: 270px;
     }
     
-  
+    .error-icon
+    {
+        display: block;
+        width: 35px;
+        height: 35px;
+        margin: 0 auto;
+
+    
+    }
 
 }
 
