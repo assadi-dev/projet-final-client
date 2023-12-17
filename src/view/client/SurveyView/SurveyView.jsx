@@ -10,18 +10,15 @@ import { useNavigate } from "react-router-dom";
 import style from "./survey.module.css";
 
 const Survey = () => {
+  const [errMessage, setErrMesage] = useState("")
   const [submiting, setSubmiting] = useState(false)
   const navigate = useNavigate();
   // récupération de l'id du sondage en paramètre
-  // à changer avec un token après
-  const { idSurvey } = useParams();
-  // à remplacer après avec le useClientFetchData
-  const questionsObjet = useClientFetchData(
-    "/client/questions/" + idSurvey,
-    null
-  );
+  const { surveyToken } = useParams();
+  // récupération des questions du sondage
+  const questionsObjet = useClientFetchData("/client/questions/survey/" + surveyToken, null);
   // récupération des données du sondage
-  const surveyObject = useClientFetchData("/client/surveys/" + idSurvey, null);
+  const surveyObject = useClientFetchData("/client/surveys/" + surveyToken, null);
 
   // construction des valeurs initiales de réponses et schema de validation
   let initValues = {},
@@ -52,8 +49,9 @@ const Survey = () => {
   });
 
   useEffect(() => {
-    questionsObjet.fetch("/client/questions/" + idSurvey, null); //idSurvey sera remplacé par le token
-    surveyObject.fetch("/client/surveys/" + idSurvey, null);
+    // fetch des données
+    questionsObjet.fetch("/client/questions/survey/" + surveyToken, null);
+    surveyObject.fetch("/client/surveys/" + surveyToken, null);
     return () => {
       surveyObject.abortController?.abort();
       questionsObjet.abortController?.abort();
@@ -67,48 +65,44 @@ const Survey = () => {
           {(questionsObjet.isLoading || surveyObject.isLoading) && (
             <p>Chargement en cours</p>
           )}
-          {(surveyObject.data?.data && questionsObjet.data?.data) &&(
+          {(surveyObject.data?.data && questionsObjet.data?.data) && (
             <>
-            <div className={`card p-4 ${style.header}`}>
-              <h1 className="text-white">{surveyObject.data?.data.title}</h1>
-              <p className={`text-white ${style.description}`}>{surveyObject.data?.data.description}</p>
-            </div>
-            <Formik
-              initialValues={initValues}
-              validationSchema={Yup.object(schema)}
-              onSubmit={(values) => {
-                const answerObject = formatAnswerObject(
-                  idSurvey,
-                  values,
-                  questionsObjet.data.data
-                );
-                const execAsync = async () => {
-                  setSubmiting(true)
-                  try {
-                    const response = await createAnswers(answerObject);
-                    console.log(response.data);
-                    navigate("/completed/" + response.data.participant.token);
-                  } catch (error) {
-                    let message = error.message;
-                    const errorData = error?.response?.data;
-                    if (errorData) {
-                      message = errorData.message;
+              <div className={`card p-4 ${style.header}`}>
+                <h1 className="text-white">{surveyObject.data?.data.title}</h1>
+                <p className={`text-white ${style.description}`}>{surveyObject.data?.data.description}</p>
+              </div>
+              {errMessage && <p className="alert alert-danger">{errMessage}</p>}
+              <Formik
+                initialValues={initValues}
+                validationSchema={Yup.object(schema)}
+                onSubmit={(values) => {
+                  const answerObject = formatAnswerObject(
+                    surveyObject.data.data.id,
+                    values,
+                    questionsObjet.data.data
+                  );
+                  const execAsync = async () => {
+                    setSubmiting(true)
+                    try {
+                      const response = await createAnswers(answerObject);
+                      navigate("/completed/" + response.data.participant.token);
+                    } catch (error) {
+                      const errorData = error?.response?.data;
+                      if (errorData) setErrMesage(errorData.message);
+                    } finally {
+                      setSubmiting(false)
                     }
-                    console.log(message);
-                  } finally{
-                    setSubmiting(false)
-                  }
-                };
-                execAsync();
-              }}
-            >
-              <Form>
-                {questionsObjet.data.data.map((question, index) => (
-                  <QuestionCard question={question} key={index} total={questionsObjet.data.data.length}></QuestionCard>
-                ))}
-                <button type="submit" className="btn btn-lg btn-primary" disabled={submiting}>{submiting? "Envoie en cours" : "Envoyer"}</button>
-              </Form>
-            </Formik>
+                  };
+                  execAsync();
+                }}
+              >
+                <Form>
+                  {questionsObjet.data.data.map((question, index) => (
+                    <QuestionCard question={question} key={index} total={questionsObjet.data.data.length}></QuestionCard>
+                  ))}
+                  <button type="submit" className="btn btn-lg btn-primary" disabled={submiting}>{submiting ? "Envoie en cours" : "Envoyer"}</button>
+                </Form>
+              </Formik>
             </>
           )}
         </div>
