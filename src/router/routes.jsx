@@ -5,8 +5,8 @@ import SurveyView from "../view/client/SurveyView/SurveyView";
 import CompletedView from "../view/client/SurveyView/CompletedView";
 import AdminLayout from "../view/layout/AdminLayout/AdminLayout";
 
-import AdminLogin from "../view/admin/AdminLogin/AdminLogin";
-import AdminQuestions from "../view/admin/AdminQuestions/AdminQuestions";
+import AdminLogin from "../view/Admin/AdminLogin/AdminLogin";
+import AdminQuestions from "../view/Admin/AdminQuestions/AdminQuestions";
 import { useRedirect } from "./AuthRedirect";
 import AnswerView from "../view/client/AnswerView/AnswerView";
 import AdminHome from "../view/Admin/AdminHome/AdminHome";
