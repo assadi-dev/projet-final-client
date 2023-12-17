@@ -11,8 +11,9 @@ import {
 import { Radar } from "react-chartjs-2";
 import { DATA_RADAR_CHART } from "./helpers";
 import ChartLoader from "./ChartLoader";
+import ErrorChart from "./ErrorChart";
 
-const RadarChart = ({ title, data, isLoading = true, ...props }) => {
+const RadarChart = ({ title, data, isLoading = true, error, ...props }) => {
   const CHART_DATA = useMemo(() => data || DATA_RADAR_CHART, [data]);
 
   ChartJS.register(
@@ -29,20 +30,24 @@ const RadarChart = ({ title, data, isLoading = true, ...props }) => {
       <div className="card-header">
         <h5 className="card-title">{title}</h5>
       </div>
-      <div className="card-body">
-        {isLoading ? (
-          <ChartLoader />
-        ) : (
-          <Radar
-            data={CHART_DATA}
-            {...props}
-            options={{
-              maintainAspectRatio: false,
-              plugins: { legend: { position: "right" } },
-            }}
-          />
-        )}
-      </div>
+      {error ? (
+        <ErrorChart message={error} />
+      ) : (
+        <div className="card-body">
+          {isLoading ? (
+            <ChartLoader />
+          ) : (
+            <Radar
+              data={CHART_DATA}
+              {...props}
+              options={{
+                maintainAspectRatio: false,
+                plugins: { legend: { position: "right" } },
+              }}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };

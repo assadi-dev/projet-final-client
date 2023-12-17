@@ -9,6 +9,7 @@ export const initialState = {
 export const UPDATE_QUESTION = "UPDATE_QUESTION";
 export const UPDATE_RADAR_DATA = "UPDATE_RADAR_DATA";
 export const ERROR_QUESTION = "ERROR_QUESTION";
+export const ERROR_RADAR = "ERROR_RADAR";
 
 /**
  * state qui constient les donnée et l'etat des questions
@@ -31,10 +32,6 @@ export const ChartDataReducer = (state = initialState, action) => {
       return { ...state, [question]: updateQuestion };
 
     case ERROR_QUESTION:
-      console.log({
-        ...state,
-        [question]: { ...state[question], error: payload },
-      });
       return {
         ...state,
         [question]: { ...state[question], error: payload.error },
@@ -48,6 +45,12 @@ export const ChartDataReducer = (state = initialState, action) => {
           labels: payload.labels,
           isLoading: payload.isLoading || false,
         },
+      };
+
+    case ERROR_RADAR:
+      return {
+        ...state,
+        radarChartData: { ...state.radarChartData, error: payload.error },
       };
 
     default:

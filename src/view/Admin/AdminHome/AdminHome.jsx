@@ -11,6 +11,7 @@ import { DATA_RADAR_CHART, retrievQuestionValueCountRequest } from "./helpers";
 import {
   ChartDataReducer,
   ERROR_QUESTION,
+  ERROR_RADAR,
   UPDATE_QUESTION,
   UPDATE_RADAR_DATA,
   initialState,
@@ -43,6 +44,7 @@ const AdminHome = () => {
         );
         const data = [...promise_question.data].map((data) => data.count);
         const labels = [...promise_question.data].map((data) => data.value);
+
         dispatchChartData({
           type: UPDATE_QUESTION,
           payload: {
@@ -57,11 +59,11 @@ const AdminHome = () => {
         if (error.response?.data) {
           message = error.response?.data?.message;
         }
-
-        dispatchChartData({
-          type: ERROR_QUESTION,
-          payload: { question_number: 6, error: message },
-        });
+        error.message != "canceled" &&
+          dispatchChartData({
+            type: ERROR_QUESTION,
+            payload: { question_number, error: message },
+          });
       }
     }
   }, []);
@@ -88,18 +90,29 @@ const AdminHome = () => {
           }
           return v;
         });
+        const labels = Array.from({ length: 5 }, (_, i) => i + 1);
+        dispatchChartData({
+          type: UPDATE_RADAR_DATA,
+          payload: {
+            labels,
+            datasets,
+            isLoading: false,
+          },
+        });
+      }
+    } catch (error) {
+      let message = error.message;
+
+      if (error.response?.data) {
+        message = error.response?.data?.message;
       }
 
-      const labels = Array.from({ length: 5 }, (_, i) => i + 1);
-      dispatchChartData({
-        type: UPDATE_RADAR_DATA,
-        payload: {
-          labels,
-          datasets,
-          isLoading: false,
-        },
-      });
-    } catch (error) {}
+      error.message != "canceled" &&
+        dispatchChartData({
+          type: ERROR_RADAR,
+          payload: { error: message },
+        });
+    }
   }, []);
 
   useEffect(() => {
@@ -129,6 +142,7 @@ const AdminHome = () => {
             labels={charDataState.question7.labels}
             datas={charDataState.question7.data}
             isLoading={charDataState.question7.isLoading}
+            error={charDataState.question7.error}
           />
         </div>
 
@@ -138,6 +152,7 @@ const AdminHome = () => {
             labels={charDataState.question10.labels}
             datas={charDataState.question10.data}
             isLoading={charDataState.question10.isLoading}
+            error={charDataState.question10.error}
           />
         </div>
         <div className={styles["col-d"]}>
@@ -148,6 +163,7 @@ const AdminHome = () => {
               labels: charDataState.radarChartData.labels,
             }}
             isLoading={charDataState.radarChartData.isLoading}
+            error={charDataState.radarChartData.error}
           />
         </div>
       </div>

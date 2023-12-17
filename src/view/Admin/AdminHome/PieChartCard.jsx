@@ -38,8 +38,6 @@ const PieChartCard = ({
     };
   }, [datas, labels]);
 
-  console.log(error);
-
   return (
     <div className="card h-100">
       <div className="card-header">
