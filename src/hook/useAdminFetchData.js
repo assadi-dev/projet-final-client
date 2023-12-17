@@ -22,7 +22,7 @@ const useFetchData = () => {
   const { isLoading, data, errors } = state;
   const fetch = useCallback(async (url, params) => {
     try {
-      setState((prevState) => ({ ...prevState, isLoading: true }));
+      setState((prevState) => ({ ...prevState, errors: "", isLoading: true }));
 
       params = params || {};
       const res = await adminInstance.get(url, {
@@ -32,7 +32,10 @@ const useFetchData = () => {
 
       setState((prevState) => ({ ...prevState, data: res.data }));
     } catch (error) {
-      setState((prevState) => ({ ...prevState, errors: error }));
+      if (error.message == "canceled") return;
+      let message = error?.response?.data?.message || error.message;
+
+      setState((prevState) => ({ ...prevState, errors: message }));
     } finally {
       setState((prevState) => ({ ...prevState, isLoading: false }));
     }

@@ -8,6 +8,7 @@ import PageCardWrapper from "../PageCardWrapper/PageCardWrapper";
 import PaginationView from "../../../components/PaginationView/PaginationView";
 import DatatRowLSpinnerLoader from "../../../components/DefaultRowLoader/DatatRowLSpinnerLoader";
 import { Tooltip } from "react-tooltip";
+import AlertError from "../../../components/AlertError/AlertError";
 
 const AdminQuestions = () => {
   const { data, isLoading, errors, fetch, abortController } = useFetchData();
@@ -67,6 +68,7 @@ const AdminQuestions = () => {
 
   return (
     <PageCardWrapper pageTitle="Questionnaire">
+      {errors && <AlertError message={errors} />}
       <DataTableCollapse
         columns={COLUMN}
         data={data?.data}

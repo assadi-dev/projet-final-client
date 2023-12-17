@@ -9,6 +9,7 @@ import PageCardWrapper from "../PageCardWrapper/PageCardWrapper";
 import PaginationView from "../../../components/PaginationView/PaginationView";
 import DatatRowLSpinnerLoader from "../../../components/DefaultRowLoader/DatatRowLSpinnerLoader";
 import { Tooltip } from "react-tooltip";
+import AlertError from "../../../components/AlertError/AlertError";
 
 export const AdminAnswers = () => {
   const [expanded, setExpanded] = useState({});
@@ -79,6 +80,10 @@ export const AdminAnswers = () => {
 
   return (
     <PageCardWrapper pageTitle="Reponses de participants" className="row">
+      {participantsPromise.errors && (
+        <AlertError message={participantsPromise.errors} />
+      )}
+
       <DataTableCollapse
         columns={COLUMN}
         data={participantsPromise?.data?.data}
