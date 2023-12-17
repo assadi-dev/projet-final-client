@@ -8,6 +8,7 @@ import {
   PieChartBorderColorDefault,
 } from "./helpers";
 import ChartLoader from "./ChartLoader";
+import ErrorChart from "./ErrorChart";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -19,6 +20,7 @@ const PieChartCard = ({
   borderColor,
   borderWidth,
   isLoading = true,
+  error,
   ...props
 }) => {
   const CHART_DATA = useMemo(() => {
@@ -41,20 +43,24 @@ const PieChartCard = ({
       <div className="card-header">
         <h5 className="card-title">{title}</h5>
       </div>
-      <div className="card-body">
-        {isLoading ? (
-          <ChartLoader />
-        ) : (
-          <Pie
-            data={CHART_DATA}
-            {...props}
-            options={{
-              maintainAspectRatio: false,
-              plugins: { legend: { position: "right" } },
-            }}
-          />
-        )}
-      </div>
+      {error ? (
+        <ErrorChart message={error} />
+      ) : (
+        <div className="card-body">
+          {isLoading ? (
+            <ChartLoader />
+          ) : (
+            <Pie
+              data={CHART_DATA}
+              {...props}
+              options={{
+                maintainAspectRatio: false,
+                plugins: { legend: { position: "right" } },
+              }}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };

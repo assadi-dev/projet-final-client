@@ -10,6 +10,8 @@ import RadarChart from "./RadarChart";
 import { DATA_RADAR_CHART, retrievQuestionValueCountRequest } from "./helpers";
 import {
   ChartDataReducer,
+  ERROR_QUESTION,
+  ERROR_RADAR,
   UPDATE_QUESTION,
   UPDATE_RADAR_DATA,
   initialState,
@@ -26,11 +28,15 @@ const AdminHome = () => {
   const pieFetchAbortControllerRef = useRef(new AbortController());
   const survey = "U29uZGFnZSBCaWcgU2NyZWVuMQ==";
 
+  /**
+   * requete le serveur afin d'obtenir les resultat des question 6,7 et 10
+   * retourne le tableaus des valeurs à inserer dans le datasets
+   */
   const fetchforPieChart = useCallback(async () => {
     const forQuestions = [6, 7, 10];
 
-    try {
-      for (const question_number of forQuestions) {
+    for (const question_number of forQuestions) {
+      try {
         const promise_question = await retrievQuestionValueCountRequest(
           survey,
           question_number,
@@ -38,6 +44,7 @@ const AdminHome = () => {
         );
         const data = [...promise_question.data].map((data) => data.count);
         const labels = [...promise_question.data].map((data) => data.value);
+
         dispatchChartData({
           type: UPDATE_QUESTION,
           payload: {
@@ -46,10 +53,25 @@ const AdminHome = () => {
             isLoading: false,
           },
         });
+      } catch (error) {
+        let message = error.message;
+
+        if (error.response?.data) {
+          message = error.response?.data?.message;
+        }
+        error.message != "canceled" &&
+          dispatchChartData({
+            type: ERROR_QUESTION,
+            payload: { question_number, error: message },
+          });
       }
-    } catch (error) {}
+    }
   }, []);
 
+  /**
+   * requete le serveur afin d'obtenir les resultat des question 11 à 15
+   * retourne le tableaus des valeurs à inserer dans le datasets
+   */
   const fetchForRadarChart = useCallback(async () => {
     const forQuestions = [11, 12, 13, 14, 15];
     let datasets = [...DATA_RADAR_CHART.datasets];
@@ -68,18 +90,29 @@ const AdminHome = () => {
           }
           return v;
         });
+        const labels = Array.from({ length: 5 }, (_, i) => i + 1);
+        dispatchChartData({
+          type: UPDATE_RADAR_DATA,
+          payload: {
+            labels,
+            datasets,
+            isLoading: false,
+          },
+        });
+      }
+    } catch (error) {
+      let message = error.message;
+
+      if (error.response?.data) {
+        message = error.response?.data?.message;
       }
 
-      const labels = Array.from({ length: 5 }, (_, i) => i + 1);
-      dispatchChartData({
-        type: UPDATE_RADAR_DATA,
-        payload: {
-          labels,
-          datasets,
-          isLoading: false,
-        },
-      });
-    } catch (error) {}
+      error.message != "canceled" &&
+        dispatchChartData({
+          type: ERROR_RADAR,
+          payload: { error: message },
+        });
+    }
   }, []);
 
   useEffect(() => {
@@ -100,6 +133,7 @@ const AdminHome = () => {
             labels={charDataState.question6.labels}
             datas={charDataState.question6.data}
             isLoading={charDataState.question6.isLoading}
+            error={charDataState.question6.error}
           />
         </div>
         <div className={styles["col-b"]}>
@@ -108,6 +142,7 @@ const AdminHome = () => {
             labels={charDataState.question7.labels}
             datas={charDataState.question7.data}
             isLoading={charDataState.question7.isLoading}
+            error={charDataState.question7.error}
           />
         </div>
 
@@ -117,6 +152,7 @@ const AdminHome = () => {
             labels={charDataState.question10.labels}
             datas={charDataState.question10.data}
             isLoading={charDataState.question10.isLoading}
+            error={charDataState.question10.error}
           />
         </div>
         <div className={styles["col-d"]}>
@@ -127,6 +163,7 @@ const AdminHome = () => {
               labels: charDataState.radarChartData.labels,
             }}
             isLoading={charDataState.radarChartData.isLoading}
+            error={charDataState.radarChartData.error}
           />
         </div>
       </div>

@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import useFetchData from "../../../hook/useAdminFetchData";
 import { createColumnHelper } from "@tanstack/react-table";
 import DataTable from "../../../components/DataTable/DataTable";
+import AlertError from "../../../components/AlertError/AlertError";
 
 const RenderListQuestion = ({ surveyData }) => {
-  const { fetch, isLoading, data, error, abortController } = useFetchData();
+  const { fetch, isLoading, data, errors, abortController } = useFetchData();
 
   useEffect(() => {
     if (!surveyData?.id) return;
@@ -33,6 +34,8 @@ const RenderListQuestion = ({ surveyData }) => {
   return (
     <div className="card">
       <div className="card-body">
+        {errors && <AlertError message={errors} />}
+
         <DataTable columns={COLUMN} data={data?.data} isLoading={isLoading} />
       </div>
     </div>
