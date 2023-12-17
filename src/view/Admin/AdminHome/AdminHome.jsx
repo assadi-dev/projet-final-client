@@ -24,6 +24,7 @@ const AdminHome = () => {
 
   const radarFetchAbortControllerRef = useRef(new AbortController());
   const pieFetchAbortControllerRef = useRef(new AbortController());
+  const survey = "U29uZGFnZSBCaWcgU2NyZWVuMQ==";
 
   const fetchforPieChart = useCallback(async () => {
     const forQuestions = [6, 7, 10];
@@ -31,7 +32,7 @@ const AdminHome = () => {
     try {
       for (const question_number of forQuestions) {
         const promise_question = await retrievQuestionValueCountRequest(
-          1,
+          survey,
           question_number,
           radarFetchAbortControllerRef.current?.signal
         );
@@ -55,7 +56,7 @@ const AdminHome = () => {
     try {
       for (const [index, question_number] of forQuestions.entries()) {
         const promise_question = await retrievQuestionValueCountRequest(
-          1,
+          survey,
           question_number,
           pieFetchAbortControllerRef.current?.signal
         );
