@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import Bigscreen from "../../../components/Svg/Bigscreen";
 
 const AdminSidebar = () => {
   const sidebarNavigation = [
@@ -21,7 +22,9 @@ const AdminSidebar = () => {
     <nav id="sidebar" className="sidebar js-sidebar">
       <div className="sidebar-content js-simplebar">
         <Link className="sidebar-brand" to={sidebarNavigation[0].to}>
-          <span className="align-middle">BIGSCREEN</span>
+          <span className="align-middle">
+            <Bigscreen className="col-sm-8" />
+          </span>
         </Link>
 
         <ul className="sidebar-nav">

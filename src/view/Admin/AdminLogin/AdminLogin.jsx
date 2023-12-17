@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { login } from "../../../services/api/authApi";
 import Cookies from "js-cookie";
 import { Helmet } from "react-helmet";
+import Bigscreen from "../../../components/Svg/Bigscreen";
 
 const schema = yup.object().shape({
   email: yup.string().email("email non valide").required("Email requis"),
@@ -62,8 +63,8 @@ const AdminLogin = () => {
         <div className="row vh-100">
           <div className="col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto d-table h-100">
             <div className="d-table-cell align-middle">
-              <div className="text-center mt-4">
-                <h1 className="h2">Administration</h1>
+              <div className="text-center mb-5">
+                <Bigscreen className="col-sm-8" />
               </div>
 
               <div className="card">
