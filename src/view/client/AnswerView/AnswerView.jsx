@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import useClientFetchData from '../../../hook/useClientFetchData'
 import AnwserCard from '../../../components/answer/AnwserCard'
 import style from "./answer.module.css"
@@ -12,6 +12,7 @@ const AnswerView = () => {
     const survey = useClientFetchData(`/client/surveys/survey/${token}`, null)
 
     useEffect(() => {
+        // fetch des données
         answers.fetch(`/client/answers/${token}`)
         survey.fetch(`/client/surveys/survey/${token}`)
         return () => {
@@ -19,11 +20,16 @@ const AnswerView = () => {
             survey.abortController?.abort();
         };
     }, [])
-    console.log(answers, survey);
     return (
         <div className="px-3">
             <div className="d-flex justify-content-center pt-4">
                 <div className={`mb-5 ${style.answerCtnr}`}>
+                {(answers.errors?.response?.data || survey.errors?.response?.data ) && 
+                    <div className={`card p-4 ${style.noAnswerCard}`}>
+                        <p className={"text-center lead"}>Nous n'avons pas pu récupérer vos réponses.</p>
+                        <p className={"text-center lead"}>Merci de retourner à <Link to={"/"}>l'accueil</Link> ou de nous contacter !</p>
+                    </div>  
+                }
                 {(survey.isLoading || answers.isLoading) && <p>Chargment en cours</p>}
                 {
                     (survey.data?.data && answers.data?.data) && 
