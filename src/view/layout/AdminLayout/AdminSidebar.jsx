@@ -4,6 +4,7 @@ import Bigscreen from "../../../components/Svg/Bigscreen";
 import { FaHome } from "react-icons/fa";
 import { FaPersonCircleQuestion } from "react-icons/fa6";
 import { FaListCheck } from "react-icons/fa6";
+import styles from "./styles.module.css";
 
 const AdminSidebar = () => {
   const sidebarNavigation = [
@@ -38,7 +39,7 @@ const AdminSidebar = () => {
             return (
               <li key={item.name} className="sidebar-item">
                 <NavLink className="sidebar-link" to={item.to}>
-                  <item.icon />
+                  <item.icon className={styles["sidebar-icon"]} />
                   <span className="align-middle">{item.name}</span>
                 </NavLink>
               </li>
