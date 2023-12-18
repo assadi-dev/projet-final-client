@@ -1,6 +1,6 @@
 # Projet BigScreen
 
-#DEMO
+# DEMO
 
 [page sondage]('https://projet-bigscreen.website)
 
