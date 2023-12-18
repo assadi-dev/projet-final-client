@@ -3,7 +3,19 @@
     "short_name": "BG",
     "id": ".",
     "start_url": ".",
+    "lang": "fr-FR",
+    "orientation": "portrait-primary",
     "icons": [
+        {
+            "src": "/favicon/favicon.ico",
+            "sizes": "64x64 24x24 16x16",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "/favicon/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
         {
             "src": "/favicon/android-chrome-192x192.png",
             "sizes": "192x192",
