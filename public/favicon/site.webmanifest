@@ -1,8 +1,6 @@
 {
     "name": "sondage Bigscreen",
     "short_name": "BG",
-    "id": ".",
-    "start_url": ".",
     "orientation": "portrait-primary",
     "icons": [
         {
