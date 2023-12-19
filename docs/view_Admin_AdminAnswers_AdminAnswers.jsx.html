@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: view/Admin/AdminAnswers/AdminAnswers.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: view/Admin/AdminAnswers/AdminAnswers.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useMemo, useState } from "react";
+import useFetchData from "../../../hook/useAdminFetchData";
+import { createColumnHelper } from "@tanstack/react-table";
+import DataTableCollapse from "../../../components/DataTableCollapse/DataTableCollapse";
+import SubRowAnswerComponentView from "./SubRowAnswerComponentView";
+import { FaEye } from "react-icons/fa6";
+import { dateFormatTostring } from "../../../utils/dateFormat";
+import PageCardWrapper from "../PageCardWrapper/PageCardWrapper";
+import PaginationView from "../../../components/PaginationView/PaginationView";
+import DatatRowLSpinnerLoader from "../../../components/DefaultRowLoader/DatatRowLSpinnerLoader";
+import { Tooltip } from "react-tooltip";
+import AlertError from "../../../components/AlertError/AlertError";
+
+export const AdminAnswers = () => {
+  const [expanded, setExpanded] = useState({});
+  const [pageIndex, setPageIndex] = useState(0);
+  const participantsPromise = useFetchData();
+
+  const columnHelper = createColumnHelper();
+
+  const COLUMN = [
+    columnHelper.accessor("survey.title", {
+      header: () => "Sondage",
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("email", {
+      header: () => "Email du participant",
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("created_at", {
+      header: () => "date de participation",
+      cell: (info) => dateFormatTostring(info.getValue()),
+    }),
+    columnHelper.display({
+      id: "Action",
+      cell: ({ row }) => {
+        return (
+          &lt;>
+            &lt;button
+              className="btn btn-primary btn-sm"
+              onClick={() => handleClickCollapseRow(row)}
+              data-tooltip-id="btn-tooltip"
+              data-tooltip-content="Cliquer pour voir les reponse"
+            >
+              &lt;FaEye />
+            &lt;/button>
+            &lt;Tooltip id="btn-tooltip" place="bottom" />
+          &lt;/>
+        );
+      },
+    }),
+  ];
+
+  const handleClickCollapseRow = (row) => {
+    const isExpended = row.getIsExpanded();
+    setExpanded(
+      (current) => (current = { ...current, [row.index]: !isExpended })
+    );
+  };
+  const params = {
+    page: pageIndex,
+  };
+
+  useEffect(() => {
+    participantsPromise.fetch(`/participants?page${pageIndex}`, params);
+  }, [pageIndex, participantsPromise?.abortController]);
+
+  const PAGE_COUNT = useMemo(() => {
+    return participantsPromise.data?.meta?.last_page || 1;
+  }, [participantsPromise.data]);
+
+  /**
+   * Fonction qui active ou désactive l'affichage des sous-elements de la row
+   * @param {*} row objet contenant les donnée de la row selectionné
+   */
+  const handlePageClick = (event) => {
+    const nextPage = event.selected + 1;
+    setPageIndex(nextPage);
+  };
+
+  return (
+    &lt;PageCardWrapper pageTitle="Reponses de participants" className="row">
+      {participantsPromise.errors &amp;&amp; (
+        &lt;AlertError message={participantsPromise.errors} />
+      )}
+
+      &lt;DataTableCollapse
+        columns={COLUMN}
+        data={participantsPromise?.data?.data}
+        isLoading={participantsPromise.isLoading}
+        expanded={expanded}
+        renderSubComponent={SubRowAnswerComponentView}
+        RowRenderLoader={DatatRowLSpinnerLoader}
+      />
+      &lt;PaginationView onPageChange={handlePageClick} pageCount={PAGE_COUNT} />
+    &lt;/PageCardWrapper>
+  );
+};
+
+export default AdminAnswers;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AlertError">AlertError</a></li><li><a href="global.html#ChartDataReducer">ChartDataReducer</a></li><li><a href="global.html#TroncateText">TroncateText</a></li><li><a href="global.html#instance">instance</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#retrievQuestionValueCountRequest">retrievQuestionValueCountRequest</a></li><li><a href="global.html#revokeToken">revokeToken</a></li><li><a href="global.html#useClientFetchData">useClientFetchData</a></li><li><a href="global.html#useFetchData">useFetchData</a></li><li><a href="global.html#useRedirect">useRedirect</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Dec 19 2023 20:12:47 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
