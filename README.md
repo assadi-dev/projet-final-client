@@ -12,9 +12,6 @@
 
 **Mot de passe:** password 
 
-### Requis
-- PHP 7.4 ou superieur
-- MySql 5.7
 
 
 # installation Local
@@ -40,4 +37,11 @@ VITE_TOKEN_STORAGE="Bigscreen_token"
 
 ```
 
+**Acces Page admin**
 
+
+[http://localhost:5173/administration/login](http://localhost:5173/administration/login) 
+
+**email:** admin@bigscreen.com
+
+**Mot de passe:** password 
