@@ -12,10 +12,13 @@
 
 **Mot de passe:** password 
 
-
+### Requis
+- PHP 7.4 ou superieur
+- MySql 5.7
 
 
 # installation Local
+
 
 
 ```
