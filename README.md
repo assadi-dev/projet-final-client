@@ -14,8 +14,9 @@
 
 
 
-``
+
 # installation Local
+
 
 ```
 npm install
@@ -24,6 +25,15 @@ npm install
 
 ```
 npm run dev
+
+```
+
+si le projet ne se lance pas 
+- assurer vous que le serveur soit lancer.
+- Créer un fichier .env et ces valeur dans  
+```   
+VITE_APP_SERVER_API="http://localhost:8000/api"
+VITE_TOKEN_STORAGE="Bigscreen_token" 
 
 ```
 
