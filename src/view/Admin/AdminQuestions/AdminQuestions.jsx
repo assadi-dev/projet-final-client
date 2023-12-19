@@ -69,6 +69,19 @@ const AdminQuestions = () => {
   return (
     <PageCardWrapper pageTitle="Questionnaire">
       {errors && <AlertError message={errors} />}
+
+      <div className="d-flex justify-content-end">
+        <p className="mx-3">
+          <strong>A</strong>: Choix multiple{" "}
+        </p>
+        <p className="mx-3">
+          <strong>B</strong> : Saisie{" "}
+        </p>
+        <p className="mx-3">
+          <strong>C</strong> : Choix numérique de 1 à 5{" "}
+        </p>
+      </div>
+
       <DataTableCollapse
         columns={COLUMN}
         data={data?.data}
