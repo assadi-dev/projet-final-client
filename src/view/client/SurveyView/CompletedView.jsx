@@ -1,6 +1,11 @@
 import { Link, useParams } from "react-router-dom";
 import style from "./survey.module.css";
 
+/**
+ * Composant d'affichage du lien de consulatation de réponses.
+ * récupère le paramètre token via l'URL.
+ * @returns {ReactElement}
+ */
 const CompletedView = () => {
   const { token } = useParams();
   const URL = `${window.location.protocol}//${window.location.host}/answers/${token}`;

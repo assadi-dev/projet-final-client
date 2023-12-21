@@ -1,4 +1,32 @@
-import React, { useEffect, useState } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: view/client/SurveyView/SurveyView.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: view/client/SurveyView/SurveyView.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from "react";
 import useClientFetchData from "../../../hook/useClientFetchData";
 import { useParams } from "react-router";
 import QuestionCard from "../../../components/question/QuestionCard";
@@ -36,14 +64,14 @@ const Survey = () => {
         ...schema,
         ["q" + question.id]: Yup.string().required("Ce champ est obligatoire"),
       };
-    if (question.is_email && question.required)
+    if (question.is_email &amp;&amp; question.required)
       schema = {
         ...schema,
         ["q" + question.id]: Yup.string()
           .email("Adresse mail invalide")
           .required("Ce champ est obligatoire"),
       };
-    if (question.question_type == "C" && question.required)
+    if (question.question_type == "C" &amp;&amp; question.required)
       schema = {
         ...schema,
         ["q" + question.id]: Yup.number()
@@ -64,20 +92,20 @@ const Survey = () => {
   }, []);
 
   return (
-    <div className="px-3">
-      <div className="d-flex justify-content-center pt-4">
-        <div className={`mb-5 ${style.surveyCtnr}`}>
-          {(questionsObjet.isLoading || surveyObject.isLoading) && (
-            <p>Chargement en cours</p>
+    &lt;div className="px-3">
+      &lt;div className="d-flex justify-content-center pt-4">
+        &lt;div className={`mb-5 ${style.surveyCtnr}`}>
+          {(questionsObjet.isLoading || surveyObject.isLoading) &amp;&amp; (
+            &lt;p>Chargement en cours&lt;/p>
           )}
-          {(surveyObject.data?.data && questionsObjet.data?.data) && (
-            <>
-              <div className={`card p-4 ${style.header}`}>
-                <h1 className="text-white">{surveyObject.data?.data.title}</h1>
-                <p className={`text-white ${style.description}`}>{surveyObject.data?.data.description}</p>
-              </div>
-              {errMessage && <p className="alert alert-danger">{errMessage}</p>}
-              <Formik
+          {(surveyObject.data?.data &amp;&amp; questionsObjet.data?.data) &amp;&amp; (
+            &lt;>
+              &lt;div className={`card p-4 ${style.header}`}>
+                &lt;h1 className="text-white">{surveyObject.data?.data.title}&lt;/h1>
+                &lt;p className={`text-white ${style.description}`}>{surveyObject.data?.data.description}&lt;/p>
+              &lt;/div>
+              {errMessage &amp;&amp; &lt;p className="alert alert-danger">{errMessage}&lt;/p>}
+              &lt;Formik
                 initialValues={initValues}
                 validationSchema={Yup.object(schema)}
                 onSubmit={(values) => {
@@ -101,19 +129,42 @@ const Survey = () => {
                   execAsync();
                 }}
               >
-                <Form>
+                &lt;Form>
                   {questionsObjet.data.data.map((question, index) => (
-                    <QuestionCard question={question} key={index} total={questionsObjet.data.data.length}></QuestionCard>
+                    &lt;QuestionCard question={question} key={index} total={questionsObjet.data.data.length}>&lt;/QuestionCard>
                   ))}
-                  <button type="submit" className="btn btn-lg btn-primary" disabled={submiting}>{submiting ? "Envoie en cours" : "Envoyer"}</button>
-                </Form>
-              </Formik>
-            </>
+                  &lt;button type="submit" className="btn btn-lg btn-primary" disabled={submiting}>{submiting ? "Envoie en cours" : "Envoyer"}&lt;/button>
+                &lt;/Form>
+              &lt;/Formik>
+            &lt;/>
           )}
-        </div>
-      </div>
-    </div>
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
   );
 };
 
 export default Survey;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#AlertError">AlertError</a></li><li><a href="global.html#ChartDataReducer">ChartDataReducer</a></li><li><a href="global.html#Survey">Survey</a></li><li><a href="global.html#TroncateText">TroncateText</a></li><li><a href="global.html#instance">instance</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#retrievQuestionValueCountRequest">retrievQuestionValueCountRequest</a></li><li><a href="global.html#revokeToken">revokeToken</a></li><li><a href="global.html#useClientFetchData">useClientFetchData</a></li><li><a href="global.html#useFetchData">useFetchData</a></li><li><a href="global.html#useRedirect">useRedirect</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Dec 21 2023 21:50:59 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
