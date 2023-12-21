@@ -4,6 +4,11 @@ import useClientFetchData from '../../../hook/useClientFetchData'
 import AnwserCard from '../../../components/answer/AnwserCard'
 import style from "./answer.module.css"
 
+/**
+ * Composant d'affichage des réponses d'un participant.
+ * Il récupère les réponses grâce au token dans l'URL et appelle le composant d'affichage de réponse
+ * @returns {ReactElement}
+ */
 const AnswerView = () => {
     // récupération du token en paramètre
     const {token} = useParams()

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: hook/useAdminFetchData.js</title>
+    <title>JSDoc: Source: view/client/SurveyView/CompletedView.jsx</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: hook/useAdminFetchData.js</h1>
+    <h1 class="page-title">Source: view/client/SurveyView/CompletedView.jsx</h1>
 
     
 
@@ -26,59 +26,32 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { useCallback, useEffect, useRef, useState } from "react";
-import { adminInstance } from "../services/instance";
+            <pre class="prettyprint source linenums"><code>import { Link, useParams } from "react-router-dom";
+import style from "./survey.module.css";
 
 /**
- * Effectue une requete de type GET avec insertion du token avec axios interceptor
- * @param {string} url endpoint de l'api qu'on souhaite interrogé ex: /questions
- * @param {object} params objet contenant les parametres de la requete
- * @returns
+ * Composant d'affichage du lien de consulatation de réponses.
+ * récupère le paramètre token via l'URL.
+ * @returns {ReactElement}
  */
-const useFetchData = () => {
-  const [state, setState] = useState({
-    isLoading: true,
-    data: null,
-    errors: null,
-  });
+const CompletedView = () => {
+  const { token } = useParams();
+  const URL = `${window.location.protocol}//${window.location.host}/answers/${token}`;
 
-  /**
-   * contient l'intance de AbortController
-   */
-  const abortControllerRef = useRef(new AbortController());
-
-  const { isLoading, data, errors } = state;
-  const fetch = useCallback(async (url, params) => {
-    try {
-      setState((prevState) => ({ ...prevState, errors: "", isLoading: true }));
-
-      params = params || {};
-      const res = await adminInstance.get(url, {
-        signal: abortControllerRef.current?.signal,
-        params: { ...params },
-      });
-
-      setState((prevState) => ({ ...prevState, data: res.data }));
-    } catch (error) {
-      if (error.message == "canceled") return;
-      let message = error?.response?.data?.message || error.message;
-
-      setState((prevState) => ({ ...prevState, errors: message }));
-    } finally {
-      setState((prevState) => ({ ...prevState, isLoading: false }));
-    }
-  }, []);
-
-  return {
-    isLoading,
-    data: data,
-    errors,
-    fetch,
-    abortController: abortControllerRef.current,
-  };
+  return (
+    &lt;div className="d-flex justify-content-center align-items-center h-100 px-3">
+      &lt;div className={`card text-center p-5 ${style.completedCard}`}>
+        &lt;h1 className="h2 mb-3">Merci d'avoir participer à ce sondage&lt;/h1>
+        &lt;p className="lead">
+          Vous pourrez consulter ultérieurement vos réponses via ce lien :{" "}
+          &lt;Link to={`/answers/${token}`}>{URL}&lt;/Link>
+        &lt;/p>
+      &lt;/div>
+    &lt;/div>
+  );
 };
 
-export default useFetchData;
+export default CompletedView;
 </code></pre>
         </article>
     </section>
